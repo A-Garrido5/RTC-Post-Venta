@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+
+		<meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="apple-touch-icon" sizes="57x57" href="/assets/img/favicons/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/assets/img/favicons/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/assets/img/favicons/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/favicons/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/assets/img/favicons/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/assets/img/favicons/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/assets/img/favicons/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/assets/img/favicons/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="/assets/img/favicons/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/assets/img/favicons/android-chrome-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/assets/img/favicons/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/assets/img/favicons/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="/assets/img/favicons/manifest.json">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="msapplication-TileImage" content="/assets/img/favicons/mstile-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+    <title>ACSIM RTC PostVenta</title>
+
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+
+   
+
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="bower_components/framework7/dist/css/framework7.ios.min.css">
+    <link rel="stylesheet" href="bower_components/swipebox/src/css/swipebox.css">
+
+    <link rel="stylesheet" href="assets/css/app.css">
+    <!--<link rel="stylesheet" href="assets/themes/town/style.css" id="theme-style">-->
+    <link rel="stylesheet" href="" id="theme-style">
+
+	</head>
+
+	<body>	
+               
+
+		<div class="statusbar-overlay"></div>
+		<div class="panel-overlay"></div>
+       
+         
+        <div class="views">
+	    <div class="view view-main">
+
+            <div class="navbar navbar-clear">
+                <div class="navbar-inner">
+				
+               		   
+                    
+                </div>
+            </div>
+    
+            <div class="pages navbar-fixed toolbar-fixed">
+                <div data-page="index" class="page page-bg">
+    
+                    <div class="page-content">
+                        <nav class="dashboard-menu">
+
+                        <h1>Crear usuario</h1>
+
+        
+
+
+        <div class="forms mt-50">
+
+            <div class="form-row">
+                    <div class="input-text">
+                        <label>Nombres</label><br>
+                        <input id="userName" type="text" placeholder="Ingrese su nombres" value="Demo" />
+                    </div>
+            </div>
+
+            <br>
+            <br>
+
+            <div class="form-row">
+                    <div class="input-text">
+                        <label>Apellidos</label><br>
+                        <input id="userLastName" type="text" placeholder="Ingrese sus apellidos" value="prueba">
+                    </div>
+            </div>
+
+            <br>
+            <br>
+
+            <div class="form-row">
+                    <div class="input-text">
+                        <label>Correo electrónico</label><br>
+                        <input id="email" placeholder="Ingrese su Email" value="demo@prueba.com">
+                    </div>
+            </div>
+
+            <br>
+            <br>
+
+            <div class="form-row">
+                    <div class="input-text">
+                        <label>Contraseña</label><br>
+                        <input id="pass" type="password" placeholder="Ingrese su contrase&ntilde;a" maxlength="10" value="hola mundo">
+                    </div>
+            </div>
+
+            <br>
+            <br>
+
+            <div class="form-row">
+                    <div class="input-text">
+                        <label>Repetir contraseña</label><br>
+                        <input id="passConfirm" type="password" placeholder=" Vuelva a ingresar su contrase&ntilde;a" maxlength="10" value="hola mundo">
+                    </div>
+            </div>
+
+            <br>
+            <br>
+
+            
+
+            <div class="form-row">
+                    <div class="input-text">
+                        <label>Teléfono</label><br>
+                        <input id="fono" type="text" placeholder="Ingrese su número de teléfono fijo">
+                    </div>
+            </div>
+
+            <br>
+            <br> 
+            
+            <div class="form-row">
+                    <div class="input-text">
+                        <label>Celular</label><br>
+                        <input id="mobileFono" type="text" placeholder="Ingrese su número de teléfono móvil" value="7234727347">
+                    </div>
+            </div>
+
+            <br>
+            <br>
+
+            <div class="form-row">
+                    <div class="input-text">
+                        <label>Dirección</label><br>
+                        <input id="address" type="text" placeholder="Ingrese su dirección" value="hashdhasd 455">
+                    </div>
+            </div>
+
+            <br>
+            <br>
+
+            <div class="form-row">
+                    <div class="combo">
+                        <label>Región</label><br>
+                        
+                        <select id="region">
+                            <option value="-" selected="selected"> Seleccionar ...</option>
+                            
+                        </select>
+                        
+                    </div>
+            </div>
+
+            <br>
+            <br>
+
+            <div class="form-row">
+                    <div class="combo">
+                        <label>Ciudad</label><br>
+                        <select id="city">
+                            <option value="-" selected="selected"> Seleccionar ... </option>
+                            
+                        </select>
+                        
+                    </div>
+            </div>
+
+
+            <br>
+            <br>
+
+            <div class="form-row">
+                    <div class="combo">
+                        <label>Comuna</label><br>
+                        <select id="comuna">
+                            <option value="-" selected="selected"> Seleccionar ...</option>
+                            
+                        </select>
+                        
+                    </div>
+            </div>
+
+            <br>
+            <br>
+            <br>
+            <br>
+
+            
+
+            <div class="form-row">
+                    <div class="input-submit" id="sendToCreate">
+                        <a class="button button-big js-form-submit button-fill button-primary">Ingresar</a>
+                    </div>               
+             </div>
+                
+
+        </div>
+
+        
+                        
+                    	   
+
+                            
+							
+                            
+                        </nav>
+                    </div>
+                </div>
+            </div>
+    
+        </div>
+</div>
+        
+        
+	
+        <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+        <script type="text/javascript" src="bower_components/framework7/dist/js/framework7.min.js"></script>
+        <script type="text/javascript" src="bower_components/swipebox/src/js/jquery.swipebox.min.js"></script>
+        <script type="text/javascript" src="bower_components/jquery-validation/dist/jquery.validate.min.js"></script>
+
+        <script type="text/javascript" src="assets/js/crearUsuario.js"></script>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="assets/js/jflickrfeed.min.js"></script>
+        <script type="text/javascript" src="assets/js/min/app.js"></script>
+        <script type="text/javascript" src="js/json2.js"></script>
+        
+
+	</body>
+
+</html>

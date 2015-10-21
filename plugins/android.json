@@ -1,0 +1,107 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {
+            "res/xml/config.xml": {
+                "parents": {
+                    "/*": [
+                        {
+                            "xml": "<feature name=\"Whitelist\"><param name=\"android-package\" value=\"org.apache.cordova.whitelist.WhitelistPlugin\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"File\"><param name=\"android-package\" value=\"org.apache.cordova.file.FileUtils\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Capture\"><param name=\"android-package\" value=\"org.apache.cordova.mediacapture.Capture\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Camera\"><param name=\"android-package\" value=\"org.apache.cordova.camera.CameraLauncher\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"FileTransfer\"><param name=\"android-package\" value=\"org.apache.cordova.filetransfer.FileTransfer\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"md5chksum\"><param name=\"android-package\" value=\"de.fastr.phonegap.plugins.md5chksum\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Sharedpreferences\"><param name=\"android-package\" value=\"in.edelworks.sharedpreferences.Sharedpreferences\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"SplashScreen\"><param name=\"android-package\" value=\"org.apache.cordova.splashscreen.SplashScreen\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "count": 1
+                        }
+                    ]
+                }
+            },
+            "config.xml": {
+                "parents": {
+                    "/*": [
+                        {
+                            "xml": "<preference name=\"AndroidPersistentFileLocation\" value=\"Internal\" />",
+                            "count": 1
+                        }
+                    ]
+                }
+            },
+            "AndroidManifest.xml": {
+                "parents": {
+                    "/*": [
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
+                            "count": 4
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.RECORD_AUDIO\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.RECORD_VIDEO\" />",
+                            "count": 1
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    "installed_plugins": {
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.phonegap.helloworld"
+        },
+        "cordova-plugin-media-capture": {
+            "PACKAGE_NAME": "com.phonegap.helloworld"
+        },
+        "cordova-plugin-camera": {
+            "PACKAGE_NAME": "com.phonegap.helloworld"
+        },
+        "cordova-plugin-file-transfer": {
+            "PACKAGE_NAME": "com.phonegap.helloworld"
+        },
+        "cordova-plugin-console": {
+            "PACKAGE_NAME": "com.phonegap.helloworld"
+        },
+        "de.fastr.phonegap.plugins.md5chksum": {
+            "PACKAGE_NAME": "com.phonegap.helloworld"
+        },
+        "in.edelworks.sharedpreferences": {
+            "PACKAGE_NAME": "com.phonegap.helloworld"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "com.phonegap.helloworld"
+        }
+    },
+    "dependent_plugins": {
+        "cordova-plugin-file": {
+            "PACKAGE_NAME": "com.phonegap.helloworld"
+        }
+    }
+}

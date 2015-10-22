@@ -16,7 +16,7 @@ $(document).ready(function (){
 
     var ubicacionActual= window.location.pathname;
 
-    alert(ubicacionActual);
+    //alert(ubicacionActual);
    //if(ubicacionActual!="login.html"){
 
     if(ubicacionActual==="/data/data/com.adobe.phonegap.app/files/files/phonegapdevapp/www/index.html"){

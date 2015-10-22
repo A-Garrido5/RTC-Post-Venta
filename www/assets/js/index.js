@@ -4,7 +4,7 @@
 
 $(document).ready(function (){
 
-  location.href="nivel1.html"
+  //location.href="nivel1.html"
 
 	var value = window.localStorage.getItem("username");
 
@@ -51,7 +51,8 @@ $(document).ready(function (){
 
 	}
 	else
-	{	
+	{  
+    mostrarMenu();	
 		
 		$('#nameRight').text(value);
 	}
@@ -119,6 +120,175 @@ function login(datos){
 
 }
 
+function mostrarMenu(){
+
+  var urlGetLevel ="http://sae1.imatronix.com:2614/WEBAPI_SERVICE/api/Nivel1";
+
+  $.ajax({
+          url: urlGetLevel,
+          type: "GET",
+          dataType: "json",
+          success: function(json) {
+
+
+            if (json != "") {
+
+               var selectObject = $('#level1');
+
+               var jsonObject = eval(json);
+
+                
+
+               for (var n = 0; n < jsonObject.length; n++) {
+                    //selectObject.append(new Option(jsonObject[n].glosa, jsonObject[n].idRegion.value));
+                    $('#level1').append($('<option>', { 
+                        value: jsonObject[n].idNivel1,
+                        text : jsonObject[n].glosa
+                    }));
+               };
+            }
+
+               
+      
+            
+          },
+          error:function (xhr, ajaxOptions, thrownError) {
+             alert(JSON.stringify(thrownError));
+             alert(JSON.stringify(xhr));
+          }
+    });
+
+
+}
+
+
+function mostrarNivel2(idNivel1){
+
+
+  var urlGetLevel2 ="http://sae1.imatronix.com:2614/WEBAPI_SERVICE/api/Nivel2/"+idNivel1;
+
+
+  var divApertura = "<div class=\"row text-center\">\n";
+  var divCierre ="</div>\n";
+  var html = "";
+  var html2 = "";
+  var contenido = "";
+
+
+
+  $.ajax({
+          url: urlGetLevel2,
+          type: "GET",
+          dataType: "json",
+          success: function(json) {
+
+
+          
+              //alert(JSON.stringify(json));
+               
+
+                var jsonObject = eval(json);
+
+                html+=divApertura;
+
+                html+="  <div class='col-50'>\n";
+                html+="      <a href='about.html' class='menu-link' onclick='redirigir('ticket.html?idNivel1="+idNivel1+"&idNivel2="+json[0].idNivel2+")>\n";
+                html+="         <span class='"+json[0].imagen+"'></span>\n";
+                html+="         <span>"+json[0].glosa+"</span>\n"
+                html+="      </a>"
+                html+="  </div>"; 
+
+                html+="  <div class='col-50'>\n";
+                html+="      <a href='about.html' class='menu-link' onclick='redirigir('ticket.html?idNivel1="+idNivel1+"&idNivel2="+json[1].idNivel2+")>\n";
+                html+="         <span class='"+json[1].imagen+"'></span>\n";
+                html+="         <span>"+json[1].glosa+"</span>\n"
+                html+="      </a>"
+                html+="  </div>";  
+
+                html+=divCierre; 
+
+                html2+=divApertura;
+
+                html2+="  <div class='col-50'>\n";
+                html2+="      <a href='about.html' class='menu-link' onclick='redirigir('ticket.html?idNivel1="+idNivel1+"&idNivel2="+json[2].idNivel2+")>\n";
+                html2+="         <span class='"+json[2].imagen+"'></span>\n";
+                html2+="         <span>"+json[2].glosa+"</span>\n"
+                html2+="      </a>"
+                html2+="  </div>";
+
+                html2+=divCierre; 
+
+
+
+
+                
+
+              /* for (var n = 0; n < jsonObject.length; n++) {              
+                 
+                 
+
+
+                  if(n%2==0){
+
+                    html+=divApertura;
+
+                    contenido+="  <div class='col-50'>\n";
+                    contenido+="      <a href='about.html' class='menu-link' onclick='redirigir('ticket.html?idNivel1="+idNivel1+"&idNivel2="+json[n].idNivel2+")>\n";
+                    contenido+="         <span class='"+json[n].imagen+"'></span>\n";
+                    contenido+="         <span>"+json[n].glosa+"</span>\n"
+                    contenido+="      </a>"
+                    contenido+="  </div>";  
+
+                    if(n===jsonObject.length-1){
+                      html+=contenido+divCierre;
+                      break;
+
+                    }
+                  }
+
+                  else{
+
+                    contenido+="  <div class='col-50'>\n";
+                    contenido+="      <a href='about.html' class='menu-link' onclick='redirigir('ticket.html?idNivel1="+idNivel1+"&idNivel2="+json[n].idNivel2+")>\n";
+                    contenido+="         <span class='"+json[n].imagen+"'></span>\n";
+                    contenido+="         <span>"+json[n].glosa+"</span>\n"
+                    contenido+="      </a>"
+                    contenido+="  </div>";  
+
+                    html+=contenido+divCierre; 
+
+
+                  }
+
+                  
+
+
+                    //selectObject.append(new Option(jsonObject[n].glosa, jsonObject[n].idRegion.value));
+                    
+               }*/
+
+               alert(html);
+
+               $("#menuDinamico").html(html + html2);
+            
+
+               
+      
+            
+          },
+          error:function (xhr, ajaxOptions, thrownError) {
+             alert(JSON.stringify(thrownError));
+             alert(JSON.stringify(xhr));
+          }
+    });
+
+
+
+  
+
+}
+
+
 function crearCuenta(){
   location.href="crearUsuario.html";
 }
@@ -142,6 +312,20 @@ $('#botonLogin').click(function() {
         
 
 
+});
+
+
+$("#level1").change(function(){
+
+  var valor = $("#level1").val();
+
+
+  mostrarNivel2(valor);
+  
+
+
+
+        
 });
 
 

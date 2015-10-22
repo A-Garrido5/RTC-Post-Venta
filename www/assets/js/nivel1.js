@@ -3,9 +3,9 @@ $(document).ready(function (){
 
 
 
-	obtenerBotones();
+	//obtenerBotones();
 
-	
+	mostrarMenu();
 
 
 });
@@ -20,29 +20,52 @@ function irNivel2 (idBoton) {
 
 
 
-function mostrarMenu(json){
+function mostrarMenu(){
 
-  var bla = JSON.stringify(json);
+  var urlGetLevel ="http://sae1.imatronix.com:2614/WEBAPI_SERVICE/api/Nivel1";
 
-  //alert(JSON.stringify(json));
+  $.ajax({
+          url: urlGetLevel,
+          type: "GET",
+          dataType: "json",
+          success: function(json) {
 
-  //alert(json.length);
+
+            if (json != "") {
+
+               var selectObject = $('#level1');
+
+               var jsonObject = eval(json);
+
+                
+
+               for (var n = 0; n < jsonObject.length; n++) {
+                    //selectObject.append(new Option(jsonObject[n].glosa, jsonObject[n].idRegion.value));
+                    $('#level1').append($('<option>', { 
+                        value: jsonObject[n].idNivel1,
+                        text : jsonObject[n].glosa
+                    }));
+               };
+            }
+
+               
+      
+            
+          },
+          error:function (xhr, ajaxOptions, thrownError) {
+             alert(JSON.stringify(thrownError));
+             alert(JSON.stringify(xhr));
+          }
+    });
+
+
+}
+
+
+function mostrarNivel2(){
 
   
-  
-  //alert(json.d.toString());
 
-  var x;
-/*
-  $.each(json,function(){
-
-    x += '1';
-
-  });
-
-  alert(x);
-*/
-  //json.forEach(alert("hola mundo"));
 }
 
 
@@ -50,7 +73,7 @@ function mostrarMenu(json){
 
 
 
-
+/*
 function obtenerBotones(){
 
   var capa = document.getElementById("capa");
@@ -107,7 +130,7 @@ function obtenerBotones(){
            html += "</li>";
        });
 
-          */
+ 
 
 
             //$("#galeriaMejoresPropiedades").html(html == "" ? "No results" : html);
@@ -130,4 +153,17 @@ function obtenerBotones(){
              alert(JSON.stringify(xhr));
           }
     });
-}
+}          */
+
+$("#level1").change(function(){
+
+  var valor = $("#level1").val();
+
+
+  mostrarNivel2();
+  
+
+
+
+        
+});

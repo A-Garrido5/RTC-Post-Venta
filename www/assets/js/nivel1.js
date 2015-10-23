@@ -62,11 +62,7 @@ function mostrarMenu(){
 }
 
 
-function mostrarNivel2(){
 
-  
-
-}
 
 
 

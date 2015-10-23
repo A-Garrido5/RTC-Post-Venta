@@ -5951,3 +5951,62 @@ td.right{
   -webkit-box-shadow:-1px 2px 12px rgba(0, 0, 0, 0.91);
   -webkit-transition: opacity 0.3s ease-in;
 }
+
+.boton-aceptar{
+  float: left;
+  margin-left: 10px;
+  background:#00ff00;
+  color:#fff;
+  font-size:1.25em;
+  padding:10px 0;
+  text-align:center;
+  width:150px;
+  
+}
+
+.boton-cancelar {
+  float: right;
+  margin-right: 10px;
+  background:#ff0000;
+  color:#fff;
+  font-size:1.25em;
+  padding:10px 0;
+  text-align:center;
+  width:150px;
+  
+}
+
+.label-entrada{
+
+  margin-left: 10px;
+  margin-right: 10px;
+  font-size:2em;
+  text-align:center;
+  width:150px;
+}
+
+.entrada{
+  margin-left: 10px;
+  width: 90%;
+  height: 30px;
+  font-size:1.5em;
+
+}
+
+.descripcion{
+
+  margin-left: 10px;
+  width: 90%;
+  font-size:1.5em;
+
+}
+
+input[type=checkbox]
+{
+  /* Double-sized Checkboxes */
+  -ms-transform: scale(2); /* IE */
+  -moz-transform: scale(2); /* FF */
+  -webkit-transform: scale(2); /* Safari and Chrome */
+  -o-transform: scale(2); /* Opera */
+  margin-left: 25px;
+}

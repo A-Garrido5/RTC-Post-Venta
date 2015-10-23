@@ -58,35 +58,43 @@
                         
                         
 
-                            <p><label class="field">Edificio:</label>&nbsp&nbsp<input type="text" id="edificio"  placeholder="Ingrese el edificio" style="width:200px">
-                            <p><label class="field">Criticidad:</label>&nbsp&nbsp<input type="text" id="criticidad" placeholder="Ingrese el nivel de criticidad" style="width:200px">
-                            <p><label class="field">Categoria:</label>&nbsp&nbsp<input type="text" id="categoria" placeholder="Ingrese la categoria" style="width:200px">
+                            <p><label class="label-entrada">Edificio:</label><input type="text" id="edificio"  placeholder="Ingrese el edificio" class="entrada">
+                            <p><label class="label-entrada">Criticidad:</label><input type="text" id="criticidad" placeholder="Ingrese el nivel de criticidad" class="entrada">
+                            <p><label class="label-entrada">Categoria:</label><input type="text" id="categoria" placeholder="Ingrese la categoria" class="entrada">
 
-                            <p><label class="field">Descripción:</label>&nbsp
+                            <p><label class="label-entrada">Descripción:</label><br>
 
-                            <textarea cols="24" rows="10" id="descripcion" >
+                            <textarea id="descripcion" rows="10" class="descripcion">
                             
                             </textarea>
 
-                        
+                            
+                            <input type="checkbox" value="None" id="roundedOne" name="check" />
+                                
+                            
+                            <label class="label-entrada">Urgente</label>
+
+                                                    
                         
                     </nav>
 
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
+                    
+
+                
+
+                    
 
                     <div class="form-row">
-                        <div class="input-submit" id="botonLogin">
-                            <a class="button button-big js-form-submit button-fill button-primary">Aceptar</a>
-                        </div>               
+                        <br><br>
+                         <br><br>
+                        <input type ="submit" class="boton-cancelar" id="cancel" value="Cancelar"> <input type ="submit" class="boton-aceptar" id="accept" value="Aceptar">
                     </div>
 
                     
-                    <button id="cancel" >Cancelar</button>
+
                 </div>
+
+                
             </div>
         </div>
 

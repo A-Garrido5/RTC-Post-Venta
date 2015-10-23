@@ -186,7 +186,7 @@ function mostrarNivel2(idNivel1){
           if (tope > 1) {
               for (var n = 1; n <= jsonObject.length; n++) {
                   if (n % 2 == 0) {
-                      if (n < tope) {
+                      if (n <= tope) {
                           htmlDinamico += "  <div class='col-50'>";
                           htmlDinamico += "      <a href='#' onclick='redirigirTicket(" + idNivel1 + "," + json[n - 2].idNivel2 + ");return false;' class='menu-link'>";
                           htmlDinamico += "         <span class='" + json[n - 2].imagen + "'></span>";

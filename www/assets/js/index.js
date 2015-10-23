@@ -56,8 +56,12 @@ $(document).ready(function () {
 
 });
 
-function redirigir(ruta){
+function redirigir(ruta) {
 	location.href=ruta;
+}
+
+function redirigirTicket(nivel1,nivel2) {
+    location.href = "ticket.html?idNivel1=" + nivel1 + "&idNivel2=" + nivel2;
 }
 
 function logout(){
@@ -147,14 +151,14 @@ function mostrarNivel2(idNivel1){
                 html+=divApertura;
 
                 html+="  <div class='col-50'>";
-                html+="      <a href='about.html' class='menu-link' onclick='redirigir('ticket.html?idNivel1="+idNivel1+"&idNivel2="+json[0].idNivel2+")>";
-                html+="         <span class='"+json[0].imagen+"'></span>";
+                html += "      <a href='#' onclick='redirigirTicket(" + idNivel1 + "," + json[0].idNivel2 + ");return false;' class='menu-link'>";
+                html += "         <span class='" + json[0].imagen + "'></span>";
                 html+="         <span>"+json[0].glosa+"</span>"
                 html+="      </a>"
                 html+="  </div>"; 
 
                 html+="  <div class='col-50'>";
-                html+="      <a href='about.html' class='menu-link' onclick='redirigir('ticket.html?idNivel1="+idNivel1+"&idNivel2="+json[1].idNivel2+")>";
+                html += "      <a href='about.html' class='menu-link' onclick='redirigirTicket(" + idNivel1 + "," + json[1].idNivel2 + ");return false;'>";
                 html+="         <span class='"+json[1].imagen+"'></span>";
                 html+="         <span>"+json[1].glosa+"</span>"
                 html+="      </a>"
@@ -165,7 +169,7 @@ function mostrarNivel2(idNivel1){
                 html2+=divApertura;
 
                 html2+="  <div class='col-50'>";
-                html2+="      <a href='about.html' class='menu-link' onclick='redirigir('ticket.html?idNivel1="+idNivel1+"&idNivel2="+json[2].idNivel2+")>";
+                html2 += "      <a href='about.html' class='menu-link' onclick='redirigirTicket(" + idNivel1 + "," + json[2].idNivel2 + ");return false;'>";
                 html2+="         <span class='"+json[2].imagen+"'></span>";
                 html2+="         <span>"+json[2].glosa+"</span>"
                 html2+="      </a>"

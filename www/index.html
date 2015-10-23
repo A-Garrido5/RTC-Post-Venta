@@ -112,7 +112,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="index.html" class="item-link close-panel item-content" onclick="logout()">
+                        <a href="index.html" class="item-link close-panel item-content" onclick="logout();return false;">
                             <div class="item-media">
                                 <i class="fa fa-sign-out"></i>
                             </div>
@@ -165,6 +165,7 @@
         <div class="pages navbar-fixed toolbar-fixed">
             <div data-page="index" class="page page-bg">
                 <div class="page-content">
+                <div id="panelNivel2">
                 <!-- menu dinamico -->
                     <nav class="dashboard-menu">
                     <div class="item-title label">Nivel 1</div>
@@ -178,6 +179,10 @@
                     </label>
                     </nav>
                 <!-- fin menu dinamico -->
+                </div>
+                </div>
+                <div id="panelCrearTicket">
+                  panel ticket
                 </div>
             </div>
         </div>

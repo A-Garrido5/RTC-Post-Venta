@@ -2,115 +2,91 @@
 
 
 
-$(document).ready(function (){
+$(document).ready(function () {
 
-  //location.href="nivel1.html"
-
-	var value = window.localStorage.getItem("username");
-
-	
-
-	if (value===null){
+    var value = window.localStorage.getItem("username");
+    if (value === null) {
 
 
+        /*
+        var ubicacionActual= window.location.pathname;
 
-    var ubicacionActual= window.location.pathname;
+        //alert(ubicacionActual);
+        //if(ubicacionActual!="login.html"){
 
-    //alert(ubicacionActual);
-   //if(ubicacionActual!="login.html"){
+        if(ubicacionActual==="/data/data/com.adobe.phonegap.app/files/files/phonegapdevapp/www/index.html"){
 
-    if(ubicacionActual==="/data/data/com.adobe.phonegap.app/files/files/phonegapdevapp/www/index.html"){
+        }
 
-    }
+        else if(ubicacionActual==="/data/data/com.adobe.phonegap.app/files/files/phonegapdevapp/www/login.html"){
 
-    else if(ubicacionActual==="/data/data/com.adobe.phonegap.app/files/files/phonegapdevapp/www/login.html"){
+        }
 
-    }
+        else if(ubicacionActual==="/data/data/com.adobe.phonegap.app/files/files/phonegapdevapp/www/crearUsuario.html"){
 
-    else if(ubicacionActual==="/data/data/com.adobe.phonegap.app/files/files/phonegapdevapp/www/crearUsuario.html"){
+        }
 
-    }
-
-    else if(ubicacionActual!="/android_asset/www/login.html" && ubicacionActual!="/login.html" && ubicacionActual!="/crearUsuario.html" && ubicacionActual!="/android_asset/www/crearUsuario.html"){
+        else if(ubicacionActual!="/android_asset/www/login.html" && ubicacionActual!="/login.html" && ubicacionActual!="/crearUsuario.html" && ubicacionActual!="/android_asset/www/crearUsuario.html"){
         
         location.href="login.html";  
+        }
+
+        */
+        location.href = "login.html";
+        //javascript: mywindow.close(); ;
+        //$('#dialogLogin').show();
+        //$( "#dialogLogin" ).trigger( "click" );
+
+        //$( '#dialogLogin' ).click ();
+
+        //		document.getElementById('dialogLogin').onclick();
+
+
+
+
     }
+    else {
+        mostrarMenu();
 
-
-  
-		
-		//$('#dialogLogin').show();
-		//$( "#dialogLogin" ).trigger( "click" );
-
-		//$( '#dialogLogin' ).click ();
-
-//		document.getElementById('dialogLogin').onclick();
-
-		
-
-
-	}
-	else
-	{  
-    mostrarMenu();	
-		
-		$('#nameRight').text(value);
-	}
+        $('#nameRight').text(value);
+    }
 
 
 
 
 });
 
-function redirigir(ruta){
-
+function redirigir(ruta) {
 	location.href=ruta;
+}
 
+function redirigirTicket(nivel1,nivel2) {
+    location.href = "ticket.html?idNivel1=" + nivel1 + "&idNivel2=" + nivel2;
 }
 
 function logout(){
-
   localStorage.removeItem("username");
-
   location.href="login.html";
-
-
 }
 
+/*
 function login(datos){
 
-	
-	var urlLogin="http://sae1.imatronix.com:2614/WEBAPI_SERVICE/api/Login/"+datos; 
-	        
+	var urlLogin="http://sae1.imatronix.com:2614/WEBAPI_SERVICE/api/Login/"+datos;      
 	$.ajax({
           url: urlLogin,
           type: "GET",
           dataType: "json",
           success: function(json) {
-            //alert(JSON.stringify(json));
-
             var sesionvalida = parseInt(json.sesionValida);
             if(sesionvalida!=1){
               alert(json.mensaje);
                                   }
             else{
-             // alert("            "+json.mensaje +'\n'+json.nombres);
-
-				
-      				$('#nameRight').text(json.nombres);
-      				localStorage.setItem("username", json.nombres);
-
-              location.href="/android_asset/www/index.html";
-              
+      		  $('#nameRight').text(json.nombres);
+      		  localStorage.setItem("username", json.nombres);
+              location.href = "index.html";
             }
-                            
-            //document.getElementById('nombres').innerHTML=json.nombres.toString();
-            
-            //alert(json.nombres);
-               
-               
-      
-            
           },
           error:function (xhr, ajaxOptions, thrownError) {
              alert(JSON.stringify(thrownError));
@@ -119,37 +95,27 @@ function login(datos){
     });
 
 }
+*/
 
 function mostrarMenu(){
 
   var urlGetLevel ="http://sae1.imatronix.com:2614/WEBAPI_SERVICE/api/Nivel1";
-
   $.ajax({
           url: urlGetLevel,
           type: "GET",
           dataType: "json",
           success: function(json) {
-
-
             if (json != "") {
 
                var selectObject = $('#level1');
-
                var jsonObject = eval(json);
-
-                
-
                for (var n = 0; n < jsonObject.length; n++) {
-                    //selectObject.append(new Option(jsonObject[n].glosa, jsonObject[n].idRegion.value));
                     $('#level1').append($('<option>', { 
                         value: jsonObject[n].idNivel1,
                         text : jsonObject[n].glosa
                     }));
                };
             }
-
-               
-      
             
           },
           error:function (xhr, ajaxOptions, thrownError) {
@@ -164,123 +130,160 @@ function mostrarMenu(){
 
 function mostrarNivel2(idNivel1){
 
-
+    $("#menuDinamico").html("");
+    if (idNivel1 == 0) {
+        return;
+    }
   var urlGetLevel2 ="http://sae1.imatronix.com:2614/WEBAPI_SERVICE/api/Nivel2/"+idNivel1;
-
-
-  var divApertura = "<div class=\"row text-center\">\n";
-  var divCierre ="</div>\n";
+  var divApertura = "<div class='row text-center'>";
+  var divCierre ="</div>";
   var html = "";
   var html2 = "";
   var contenido = "";
 
-
-
   $.ajax({
-          url: urlGetLevel2,
-          type: "GET",
-          dataType: "json",
-          success: function(json) {
+      url: urlGetLevel2,
+      type: "GET",
+      dataType: "json",
+      success: function (json) {
 
+          var jsonObject = eval(json);
 
-          
-              //alert(JSON.stringify(json));
-               
+          /*
+          html += divApertura;
 
-                var jsonObject = eval(json);
+          html += "  <div class='col-50'>";
+          html += "      <a href='#' onclick='redirigirTicket(" + idNivel1 + "," + json[0].idNivel2 + ");return false;' class='menu-link'>";
+          html += "         <span class='" + json[0].imagen + "'></span>";
+          html += "         <span>" + json[0].glosa + "</span>"
+          html += "      </a>"
+          html += "  </div>";
 
-                html+=divApertura;
+          html += "  <div class='col-50'>";
+          html += "      <a href='about.html' class='menu-link' onclick='redirigirTicket(" + idNivel1 + "," + json[1].idNivel2 + ");return false;'>";
+          html += "         <span class='" + json[1].imagen + "'></span>";
+          html += "         <span>" + json[1].glosa + "</span>"
+          html += "      </a>"
+          html += "  </div>";
 
-                html+="  <div class='col-50'>\n";
-                html+="      <a href='about.html' class='menu-link' onclick='redirigir('ticket.html?idNivel1="+idNivel1+"&idNivel2="+json[0].idNivel2+")>\n";
-                html+="         <span class='"+json[0].imagen+"'></span>\n";
-                html+="         <span>"+json[0].glosa+"</span>\n"
-                html+="      </a>"
-                html+="  </div>"; 
+          html += divCierre;
 
-                html+="  <div class='col-50'>\n";
-                html+="      <a href='about.html' class='menu-link' onclick='redirigir('ticket.html?idNivel1="+idNivel1+"&idNivel2="+json[1].idNivel2+")>\n";
-                html+="         <span class='"+json[1].imagen+"'></span>\n";
-                html+="         <span>"+json[1].glosa+"</span>\n"
-                html+="      </a>"
-                html+="  </div>";  
+          html2 += divApertura;
 
-                html+=divCierre; 
+          html2 += "  <div class='col-50'>";
+          html2 += "      <a href='about.html' class='menu-link' onclick='redirigirTicket(" + idNivel1 + "," + json[2].idNivel2 + ");return false;'>";
+          html2 += "         <span class='" + json[2].imagen + "'></span>";
+          html2 += "         <span>" + json[2].glosa + "</span>"
+          html2 += "      </a>"
+          html2 += "  </div>";
 
-                html2+=divApertura;
+          html2 += divCierre;
+          */
 
-                html2+="  <div class='col-50'>\n";
-                html2+="      <a href='about.html' class='menu-link' onclick='redirigir('ticket.html?idNivel1="+idNivel1+"&idNivel2="+json[2].idNivel2+")>\n";
-                html2+="         <span class='"+json[2].imagen+"'></span>\n";
-                html2+="         <span>"+json[2].glosa+"</span>\n"
-                html2+="      </a>"
-                html2+="  </div>";
+          var tope = jsonObject.length;
+          var htmlDinamico = "";
+          var htmlDinamicoCuerpo = "";
+          if (tope > 1) {
+              for (var n = 1; n <= jsonObject.length; n++) {
+                  if (n % 2 == 0) {
+                      if (n <= tope) {
+                          htmlDinamico += "  <div class='col-50'>";
+                          htmlDinamico += "      <a href='#' onclick='redirigirTicket(" + idNivel1 + "," + json[n - 2].idNivel2 + ");return false;' class='menu-link'>";
+                          htmlDinamico += "         <span class='" + json[n - 2].imagen + "'></span>";
+                          htmlDinamico += "         <span>" + json[n - 2].glosa + "</span>"
+                          htmlDinamico += "      </a>"
+                          htmlDinamico += "  </div>";
 
-                html2+=divCierre; 
+                          htmlDinamico += "  <div class='col-50'>";
+                          htmlDinamico += "      <a href='about.html' class='menu-link' onclick='redirigirTicket(" + idNivel1 + "," + json[n - 1].idNivel2 + ");return false;'>";
+                          htmlDinamico += "         <span class='" + json[n - 1].imagen + "'></span>";
+                          htmlDinamico += "         <span>" + json[n - 1].glosa + "</span>"
+                          htmlDinamico += "      </a>"
+                          htmlDinamico += "  </div>";
 
+                      }
 
+                  }
+                  else {
+                      if (n == tope) {
+                          htmlDinamico += "  <div class='col-50'>";
+                          htmlDinamico += "      <a href='about.html' class='menu-link' onclick='redirigirTicket(" + idNivel1 + "," + json[n - 1].idNivel2 + ");return false;'>";
+                          htmlDinamico += "         <span class='" + json[n - 1].imagen + "'></span>";
+                          htmlDinamico += "         <span>" + json[n-1].glosa + "</span>"
+                          htmlDinamico += "      </a>"
+                          htmlDinamico += "  </div>";
+                      }
+                  }
 
+                  htmlDinamicoCuerpo = divApertura + htmlDinamico + divCierre;
+              }
+          }
+          else if (tope == 1) {
+              htmlDinamicoCuerpo += "  <div class='col-50'>";
+              htmlDinamicoCuerpo += "      <a href='#' onclick='redirigirTicket(" + idNivel1 + "," + json[0].idNivel2 + ");return false;' class='menu-link'>";
+              htmlDinamicoCuerpo += "         <span class='" + json[0].imagen + "'></span>";
+              htmlDinamicoCuerpo += "         <span>" + json[0].glosa + "</span>"
+              htmlDinamicoCuerpo += "      </a>"
+              htmlDinamicoCuerpo += "  </div>";
+              htmlDinamicoCuerpo = divApertura + htmlDinamico + divCierre;
+          }
 
-                
-
-              /* for (var n = 0; n < jsonObject.length; n++) {              
+          /* for (var n = 0; n < jsonObject.length; n++) {              
                  
                  
 
 
-                  if(n%2==0){
+          if(n%2==0){
 
-                    html+=divApertura;
+          html+=divApertura;
 
-                    contenido+="  <div class='col-50'>\n";
-                    contenido+="      <a href='about.html' class='menu-link' onclick='redirigir('ticket.html?idNivel1="+idNivel1+"&idNivel2="+json[n].idNivel2+")>\n";
-                    contenido+="         <span class='"+json[n].imagen+"'></span>\n";
-                    contenido+="         <span>"+json[n].glosa+"</span>\n"
-                    contenido+="      </a>"
-                    contenido+="  </div>";  
+          contenido+="  <div class='col-50'>\n";
+          contenido+="      <a href='about.html' class='menu-link' onclick='redirigir('ticket.html?idNivel1="+idNivel1+"&idNivel2="+json[n].idNivel2+")>\n";
+          contenido+="         <span class='"+json[n].imagen+"'></span>\n";
+          contenido+="         <span>"+json[n].glosa+"</span>\n"
+          contenido+="      </a>"
+          contenido+="  </div>";  
 
-                    if(n===jsonObject.length-1){
-                      html+=contenido+divCierre;
-                      break;
+          if(n===jsonObject.length-1){
+          html+=contenido+divCierre;
+          break;
 
-                    }
-                  }
+          }
+          }
 
-                  else{
+          else{
 
-                    contenido+="  <div class='col-50'>\n";
-                    contenido+="      <a href='about.html' class='menu-link' onclick='redirigir('ticket.html?idNivel1="+idNivel1+"&idNivel2="+json[n].idNivel2+")>\n";
-                    contenido+="         <span class='"+json[n].imagen+"'></span>\n";
-                    contenido+="         <span>"+json[n].glosa+"</span>\n"
-                    contenido+="      </a>"
-                    contenido+="  </div>";  
+          contenido+="  <div class='col-50'>\n";
+          contenido+="      <a href='about.html' class='menu-link' onclick='redirigir('ticket.html?idNivel1="+idNivel1+"&idNivel2="+json[n].idNivel2+")>\n";
+          contenido+="         <span class='"+json[n].imagen+"'></span>\n";
+          contenido+="         <span>"+json[n].glosa+"</span>\n"
+          contenido+="      </a>"
+          contenido+="  </div>";  
 
-                    html+=contenido+divCierre; 
+          html+=contenido+divCierre; 
 
 
-                  }
+          }
 
                   
 
 
-                    //selectObject.append(new Option(jsonObject[n].glosa, jsonObject[n].idRegion.value));
+          //selectObject.append(new Option(jsonObject[n].glosa, jsonObject[n].idRegion.value));
                     
-               }*/
+          }*/
 
-               alert(html);
+          //alert(html);
 
-               $("#menuDinamico").html(html + html2);
-            
+          //$("#menuDinamico").html(html + html2);
+          $("#menuDinamico").html(htmlDinamicoCuerpo);
 
-               
-      
-            
-          },
-          error:function (xhr, ajaxOptions, thrownError) {
-             alert(JSON.stringify(thrownError));
-             alert(JSON.stringify(xhr));
-          }
-    });
+
+      },
+      error: function (xhr, ajaxOptions, thrownError) {
+          alert(JSON.stringify(thrownError));
+          alert(JSON.stringify(xhr));
+      }
+  });
 
 
 
@@ -301,6 +304,7 @@ function isNumber(e) {
       return patron.test(n);
 }
 
+/*
 $('#botonLogin').click(function() {
 
 
@@ -313,19 +317,11 @@ $('#botonLogin').click(function() {
 
 
 });
-
+*/
 
 $("#level1").change(function(){
-
   var valor = $("#level1").val();
-
-
-  mostrarNivel2(valor);
-  
-
-
-
-        
+  mostrarNivel2(valor);    
 });
 
 

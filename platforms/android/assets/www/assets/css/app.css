@@ -6001,6 +6001,29 @@ td.right{
 
 }
 
+
+.boton-foto {
+  
+  margin-left: auto;
+  margin-right: auto;
+  
+  font-size:1.25em;
+  
+  text-align:center;
+  width:150px;
+  
+}
+
+.centrar{
+  text-align: center;
+}
+
+
+
+
+
+
+
 input[type=checkbox]
 {
   /* Double-sized Checkboxes */

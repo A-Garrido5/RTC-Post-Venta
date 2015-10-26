@@ -58,7 +58,9 @@
                         
                         
 
-                            <p><label class="label-entrada">Edificio:</label><input type="text" id="edificio"  placeholder="Ingrese el edificio" class="entrada">
+                            <!--<p><label class="label-entrada">Edificio:</label><input type="text" id="edificio"  placeholder="Ingrese el edificio" class="entrada">-->
+
+                            <label class="label-entrada">Edificio:</label><select class="entrada" id="edificio"></select>                            
                             <p><label class="label-entrada">Criticidad:</label><input type="text" id="criticidad" placeholder="Ingrese el nivel de criticidad" class="entrada">
                             <p><label class="label-entrada">Categoria:</label><input type="text" id="categoria" placeholder="Ingrese la categoria" class="entrada">
 
@@ -75,17 +77,23 @@
                                                         
                             <label class="label-entrada">Urgente</label>
 
-                            <br><br>
+                            <br>
 
-                            <img style="width:90%;height:150px;margin-left: 10px;" id="smallImage" src="" />
+                           
 
                                                     
                         
                     </nav>
 
-                    
+                    <div class="centrar">
 
-                
+                     <input type="submit" id="TakePicture" align="center" value="Tomar foto" class="boton-foto">
+
+                    <br><br>
+
+                    <img style="display:none;width:90%;height:250px;margin-left: 10px;" id="smallImage" src="" />
+
+                    </div>
 
                     
 

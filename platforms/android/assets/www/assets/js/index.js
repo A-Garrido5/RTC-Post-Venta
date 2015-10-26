@@ -200,7 +200,10 @@ function mostrarNivel2(idNivel1){
                           htmlDinamico += "         <span>" + json[n - 1].glosa + "</span>"
                           htmlDinamico += "      </a>"
                           htmlDinamico += "  </div>";
+
                           htmlDinamico += "  <br>";
+
+
 
 
                       }
@@ -214,7 +217,10 @@ function mostrarNivel2(idNivel1){
                           htmlDinamico += "         <span>" + json[n-1].glosa + "</span>"
                           htmlDinamico += "      </a>"
                           htmlDinamico += "  </div>";
+
                           htmlDinamico += "  <br>";
+
+
                       }
                   }
 

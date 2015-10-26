@@ -118,6 +118,20 @@ module.exports = [
         ]
     },
     {
+        "file": "plugins/cordova-plugin-dialogs/www/notification.js",
+        "id": "cordova-plugin-dialogs.notification",
+        "merges": [
+            "navigator.notification"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-dialogs/www/android/notification.js",
+        "id": "cordova-plugin-dialogs.notification_android",
+        "merges": [
+            "navigator.notification"
+        ]
+    },
+    {
         "file": "plugins/cordova-plugin-file/www/DirectoryEntry.js",
         "id": "cordova-plugin-file.DirectoryEntry",
         "clobbers": [
@@ -275,6 +289,7 @@ module.exports.metadata =
     "de.fastr.phonegap.plugins.md5chksum": "0.1.3",
     "in.edelworks.sharedpreferences": "0.1.0",
     "cordova-plugin-splashscreen": "3.0.0-dev",
+    "cordova-plugin-dialogs": "1.1.1",
     "cordova-plugin-file": "3.0.0"
 }
 // BOTTOM OF METADATA

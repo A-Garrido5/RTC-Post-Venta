@@ -5,11 +5,24 @@ function onDeviceReady() {
 
 	destinationType = navigator.camera.DestinationType;
 
+	  
+
 }
+
 
 $(document).ready(function (){
 
-  obtenerSitios();
+
+
+    obtenerSitios();
+
+    obtenerTipos();
+
+    obtenerNivel3();
+
+
+
+
 
 });
 
@@ -37,7 +50,7 @@ $('#TakePicture').click(function() {
 
 function sendData(imageData){
 
-	alert("Foto tomada exitosamente");
+	//alert("Foto tomada exitosamente");
 
 	var image = document.getElementById('smallImage');
     image.src = imageData;
@@ -46,35 +59,117 @@ function sendData(imageData){
 
 }
 
+function obtenerNivel3(){
 
-function enviarTicket(edificio, criticidad, categoria, descripcion, urgente, foto){
+	var urlGetLevel3 ="http://sae1.imatronix.com:2614/WEBAPI_SERVICE/api/Nivel3/"+ getUrlVars()["idNivel2"];
+
+  $.ajax({
+          url: urlGetLevel3,
+          type: "GET",
+          dataType: "json",
+          success: function(json) {
 
 
+            if (json != "") {
 
+               //var selectObject = $('#edificio');
 
+               var jsonObject = eval(json);
 
-    var urlLogin = "http://sae1.imatronix.com:2614/WEBAPI_SERVICE/api/Documento";
+                
 
+               for (var n = 0; n < jsonObject.length; n++) {
+                    //selectObject.append(new Option(jsonObject[n].glosa, jsonObject[n].idRegion.value));
+                   $('#nivel3').append($('<option>', { 
+                        value: jsonObject[n].idNivel3,
+                        text : jsonObject[n].glosa
+                    }));
+               };
+            }
 
-    $.ajax({
+               
+      
+            
+          },
+          error:function (xhr, ajaxOptions, thrownError) {
+             alert(JSON.stringify(thrownError));
+             alert(JSON.stringify(xhr));
+          }
+    });
+
+}
+
+function guardaTicket(sitio,categoria,tipo,descripcion,urgente){
+
+	
+	var token = localStorage.getItem("token");
+
+	var idNivel1 = getUrlVars()["idNivel1"];
+
+	var idNivel2 = getUrlVars()["idNivel2"];
+
+	var idNivel3 = $('#nivel3').val();
+
+	  $.ajax({
            
             //dataType: 'json',, 
-            url: "http://sae1.imatronix.com:2614/WEBAPI_SERVICE/api/Documento",
+            url: "http://sae1.imatronix.com:2614/WEBAPI_SERVICE/api/Ticket",
             type: "POST",
-            data: {"idDocumento": 0, "idTicket": 1, "fecha": "2015-07-07", "documento": "FOTO.JPG" },
+            data: {"descripcion": descripcion, "urgente": urgente, "token": token, "idSitio":sitio  ,"idSubsitio": categoria,"idTipo":tipo,"idNivel1":idNivel1,"idNivel2":idNivel2,"idNivel3":idNivel3},
             
            
             success: function (result) {
-                alert("OK");
+                alert("Se ha creado un ticket número: " + result);
             },
            
             error: function (xhr,status,p3,p4) {
            
-                alert("error:" + JSON.stringify(xhr));
+                alert("error:");
             }
     });
 
 }
+
+
+
+
+function uploadPhoto(imageURI) {
+
+	var nombreUsuario = window.localStorage.getItem("username");
+
+	var nombreArchivo = imageURI.substr(imageURI.lastIndexOf('/')+1);
+
+    var options = new FileUploadOptions();
+    options.fileKey="file";
+    options.fileName= nombreUsuario+"-"+nombreArchivo;
+    options.mimeType="image/jpeg";
+
+    var params = new Object();
+    params.value1 = "Hola mundo";
+    params.value2 = "Priueba";
+    params.value3 = "adrian";
+
+    options.params = params;
+
+    var ft = new FileTransfer();
+    ft.upload(imageURI, encodeURI("http://sae1.imatronix.com:2614/WEBAPI_SERVICE/api/Documento"), win, fail, options);
+
+
+    
+}
+
+
+function win(r) {
+	
+  alert("Foto enviada");
+}
+
+function fail(error) {
+    alert("An error has occurred: Code = " + error.code);
+    console.log("upload error source " + error.source);
+    console.log("upload error target " + error.target);
+}
+
 
 
 function capturePhoto() {
@@ -139,11 +234,112 @@ function obtenerSitios(){
 
 }
 
+function obtenerTipos(){
+
+  var urlGetTipo ="http://sae1.imatronix.com:2614/WEBAPI_SERVICE/api/SubsitioTipo";
+
+  $.ajax({
+          url: urlGetTipo,
+          type: "POST",
+          dataType: "json",
+          success: function(json) {
+
+
+            if (json != "") {
+
+               var selectObject = $('#tipo');
+
+               var jsonObject = eval(json);
+
+                
+
+               for (var n = 0; n < jsonObject.length; n++) {
+                    //selectObject.append(new Option(jsonObject[n].glosa, jsonObject[n].idRegion.value));
+                    $('#tipo').append($('<option>', { 
+                        value: jsonObject[n].idTipo,
+                        text : jsonObject[n].glosa
+                    }));
+               };
+            }
+
+               
+      
+            
+          },
+          error:function (xhr, ajaxOptions, thrownError) {
+             alert(JSON.stringify(thrownError));
+             alert(JSON.stringify(xhr));
+          }
+    });
+
+
+}
+
+function obtenerCategoria(idSitio, idTipo){
+
+	var urlGetCategoria ="http://sae1.imatronix.com:2614/WEBAPI_SERVICE/api/Subsitio";
+
+
+  $.ajax({
+          url: urlGetCategoria,
+          type: "POST",
+          dataType: "json",
+          data: {"idSitio": idSitio, "idTipo": idTipo},
+          success: function(json) {
+          
+          
+
+            if (json != "") {
+
+               var selectObject = $('#categoria');
+
+               var jsonObject = eval(json);
+
+               
+
+               for (var n = 0; n < jsonObject.length; n++) {
+                    //selectObject.append(new Option(jsonObject[n].glosa, jsonObject[n].idRegion.value));
+                    $('#categoria').append($('<option>', { 
+                        value: jsonObject[n].idSubSitio,
+                        text : jsonObject[n].glosa
+                    }));
+               };
+            }
+
+               
+      		
+            
+          },
+          error:function (xhr, ajaxOptions, thrownError) {
+             alert(JSON.stringify(thrownError));
+             alert(JSON.stringify(xhr));
+          }
+    });
+
+
+}
+
+function getUrlVars(){
+
+    var vars = [], hash;
+    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+    for(var i = 0; i < hashes.length; i++)
+    {
+        hash = hashes[i].split('=');
+        vars.push(hash[0]);
+        vars[hash[0]] = hash[1];
+    }
+
+    return vars;
+}
+
 $('#accept').click(function() { 
 
-	var edificio=$('#edificio').val();
-	var criticidad=$('#criticidad').val();
+	var sitio=$('#edificio').val();
+
 	var categoria=$('#categoria').val();
+
+	var tipo =$('#tipo').val();
 
 	var descripcion=$('#descripcion').val();
 
@@ -152,17 +348,69 @@ $('#accept').click(function() {
 	if(document.getElementById("smallImage").style.display!="none"){
 		
 		var foto = document.getElementById("smallImage").innerHTMl;
-		alert(foto);		
+			
 	}
 
 	else{
 		document.getElementById("smallImage").src=null;
-		alert("No hay foto");
+		
 	}
 
-	enviarTicket(edificio,criticidad,categoria,descripcion,urgente,foto);
+
+	uploadPhoto(document.getElementById('smallImage').src);
+
+	guardaTicket(sitio,categoria,tipo,descripcion,urgente);
+	//enviarTicket(edificio,criticidad,categoria,descripcion,urgente,foto);
 
 
 
 
+});
+
+
+
+
+
+
+$("#edificio").change(function(){
+
+	
+	var categoria = $('#categoria').empty();
+
+	categoria.append($('<option>', { 
+	                        value: 0,
+	                        text : ".Seleccionar."
+	}));
+
+
+	var selectEdificio = document.getElementById("edificio").selectedIndex;
+	var selectTipo = document.getElementById("tipo").selectedIndex;
+
+	if(selectEdificio!= 0 && selectTipo != 0){
+		obtenerCategoria($('#edificio').val(),$('#tipo').val());
+	}
+	
+
+        
+});
+
+
+$("#tipo").change(function(){
+
+	
+	var categoria = $('#categoria').empty();
+
+	categoria.append($('<option>', { 
+	                        value: 0,
+	                        text : ".Seleccionar."
+	}));
+
+	var selectEdificio = document.getElementById("edificio").selectedIndex;
+	var selectTipo = document.getElementById("tipo").selectedIndex;
+
+	if(selectEdificio!= 0 && selectTipo != 0){
+		obtenerCategoria($('#edificio').val(),$('#tipo').val());
+	}
+	
+        
 });

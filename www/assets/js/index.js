@@ -4,6 +4,8 @@
 
 $(document).ready(function () {
 
+
+
     var value = window.localStorage.getItem("username");
     if (value === null) {
 
@@ -201,7 +203,7 @@ function mostrarNivel2(idNivel1){
                           htmlDinamico += "      </a>"
                           htmlDinamico += "  </div>";
 
-                          htmlDinamico += "  <br>";
+                        
 
 
 
@@ -218,7 +220,7 @@ function mostrarNivel2(idNivel1){
                           htmlDinamico += "      </a>"
                           htmlDinamico += "  </div>";
 
-                          htmlDinamico += "  <br>";
+                        
 
 
                       }

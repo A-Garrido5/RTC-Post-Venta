@@ -6,6 +6,8 @@
 	        type: "GET",
 	        dataType: "json",
 	        success: function (json) {
+
+                alert(JSON.stringify(json));
 	            var sesionvalida = parseInt(json.sesionValida);
 	            if (sesionvalida != 1) {
 	                alert(json.mensaje);
@@ -13,7 +15,7 @@
 	            else {
 	                $('#nameRight').text(json.nombres);
 	                localStorage.setItem("username", json.nombres);
-	                localStorage.setItem("token", json.token);
+	                localStorage.setItem("token", json.tokenUsuario);
 	                location.href = "index.html";
 	            }
 	        },

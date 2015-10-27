@@ -5,9 +5,22 @@ function onDeviceReady() {
 
 	destinationType = navigator.camera.DestinationType;
 
-	  
+  
+    if (navigator.notification) { // Si disponemos de notificaciones nativas, sobreescribimos el alert del navegador:
+            window.alert = function (message) {
+                    navigator.notification.alert(
+                    message,    // mensaje
+                    null,       // función de callback
+                    "Workshop", // título
+                    'OK'        // Nombre botón
+            );
+          };
+    }	  
 
 }
+
+ 
+
 
 
 $(document).ready(function (){

@@ -13,6 +13,7 @@
 	                alert(json.mensaje);
 	            }
 	            else {
+	            	showAlert("Ingreso existoso");
 	                $('#nameRight').text(json.nombres);
 	                localStorage.setItem("username", json.nombres);
 	                localStorage.setItem("token", json.tokenUsuario);
@@ -44,6 +45,30 @@
 
     function crearCuenta() {
         location.href = "crearUsuario.html";
+    }
+
+    document.addEventListener("deviceready", onDeviceReady, false);
+
+    // device APIs are available
+    //
+    function onDeviceReady() {
+        // Empty
+    }
+
+    // alert dialog dismissed
+        function alertDismissed() {
+            // do something
+        }
+
+    // Show a custom alertDismissed
+    //
+    function showAlert(message) {
+        navigator.notification.alert(
+            message,                // message
+            alertDismissed,         // callback
+            'Aviso',            // title
+            'Ok'                  // buttonName
+        );
     }
 
     

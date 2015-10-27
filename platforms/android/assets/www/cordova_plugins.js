@@ -132,6 +132,14 @@ module.exports = [
         ]
     },
     {
+        "file": "plugins/org.apache.cordova.vibration/www/vibration.js",
+        "id": "org.apache.cordova.vibration.notification",
+        "merges": [
+            "navigator.notification",
+            "navigator"
+        ]
+    },
+    {
         "file": "plugins/cordova-plugin-file/www/DirectoryEntry.js",
         "id": "cordova-plugin-file.DirectoryEntry",
         "clobbers": [
@@ -290,6 +298,7 @@ module.exports.metadata =
     "in.edelworks.sharedpreferences": "0.1.0",
     "cordova-plugin-splashscreen": "3.0.0-dev",
     "cordova-plugin-dialogs": "1.1.1",
+    "org.apache.cordova.vibration": "0.3.13",
     "cordova-plugin-file": "3.0.0"
 }
 // BOTTOM OF METADATA

@@ -7,7 +7,7 @@
 	        dataType: "json",
 	        success: function (json) {
 
-                alert(JSON.stringify(json));
+              
 	            var sesionvalida = parseInt(json.sesionValida);
 	            if (sesionvalida != 1) {
 	                alert(json.mensaje);
@@ -28,7 +28,7 @@
 
     function isNumber(e) {
           k = (document.all) ? e.keyCode : e.which;
-          if (k==8 || k==0) return true;
+          if (k==8 || k==0 || k==190) return true;
           patron = /\w/ ;
           n = String.fromCharCode(k);
           return patron.test(n);
@@ -46,10 +46,4 @@
         location.href = "crearUsuario.html";
     }
 
-    function isNumber(e) {
-        k = (document.all) ? e.keyCode : e.which;
-        if (k == 8 || k == 0) return true;
-        patron = /\w/;
-        n = String.fromCharCode(k);
-        return patron.test(n);
-    }
+    

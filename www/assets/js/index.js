@@ -46,6 +46,9 @@ $(document).ready(function () {
 
 });
 
+
+
+
 function redirigir(ruta) {
   location.href=ruta;
 }
@@ -170,22 +173,22 @@ function mostrarNivel2(idNivel1){
                   if (n % 2 == 0) {
                       if (n <= tope) {
 
-                         htmlDinamico += divApertura;
-                          htmlDinamico += "  <div class='col-50'>";
-                          htmlDinamico += "      <a href='#' onclick='redirigirTicket(" + idNivel1 + "," + json[n - 2].idNivel2 + ");return false;' class='menu-link'>";
-                          htmlDinamico += "         <span class='" + json[n - 2].imagen + "'></span>";
-                          htmlDinamico += "         <span>" + json[n - 2].glosa + "</span>"
-                          htmlDinamico += "      </a>"
-                          htmlDinamico += "  </div>";
+                         htmlDinamico += divApertura + "  \n ";
+                          htmlDinamico += "  <div class='col-50'>   \n";
+                          htmlDinamico += "      <a href='#' onclick='redirigirTicket(" + idNivel1 + "," + json[n - 2].idNivel2 + ");return false;' class='menu-link'>  \n";
+                          htmlDinamico += "         <span class='" + json[n - 2].imagen + "'></span>      \n";
+                          htmlDinamico += "         <span>" + json[n - 2].glosa + "</span>    \n";
+                          htmlDinamico += "      </a>   \n";
+                          htmlDinamico += "  </div>   \n";
 
-                          htmlDinamico += "  <div class='col-50'>";
-                          htmlDinamico += "      <a href='about.html' class='menu-link' onclick='redirigirTicket(" + idNivel1 + "," + json[n - 1].idNivel2 + ");return false;'>";
-                          htmlDinamico += "         <span class='" + json[n - 1].imagen + "'></span>";
-                          htmlDinamico += "         <span>" + json[n - 1].glosa + "</span>"
-                          htmlDinamico += "      </a>"
-                          htmlDinamico += "  </div>";
+                          htmlDinamico += "  <div class='col-50'>    \n";
+                          htmlDinamico += "      <a href='about.html' class='menu-link' onclick='redirigirTicket(" + idNivel1 + "," + json[n - 1].idNivel2 + ");return false;'>    \n";
+                          htmlDinamico += "         <span class='" + json[n - 1].imagen + "'></span>    \n";
+                          htmlDinamico += "         <span>" + json[n - 1].glosa + "</span>    \n";
+                          htmlDinamico += "      </a>   \n";
+                          htmlDinamico += "  </div>   \n";
 
-                        htmlDinamico += divCierre;
+                        htmlDinamico += "    \n" + divCierre + "     \n";
 
 
 
@@ -195,13 +198,13 @@ function mostrarNivel2(idNivel1){
                   }
                   else {
                       if (n == tope) {
-                        htmlDinamico += divApertura;
-                          htmlDinamico += "  <div class='col-50'>";
-                          htmlDinamico += "      <a href='about.html' class='menu-link' onclick='redirigirTicket(" + idNivel1 + "," + json[n - 1].idNivel2 + ");return false;'>";
-                          htmlDinamico += "         <span class='" + json[n - 1].imagen + "'></span>";
-                          htmlDinamico += "         <span>" + json[n-1].glosa + "</span>"
-                          htmlDinamico += "      </a>"
-                          htmlDinamico += "  </div>";
+                        htmlDinamico += divApertura + "  \n ";
+                          htmlDinamico += "  <div class='col-50'>    \n";
+                          htmlDinamico += "      <a href='about.html' class='menu-link' onclick='redirigirTicket(" + idNivel1 + "," + json[n - 1].idNivel2 + ");return false;'>    \n";
+                          htmlDinamico += "         <span class='" + json[n - 1].imagen + "'></span>     \n";
+                          htmlDinamico += "         <span>" + json[n-1].glosa + "</span>      \n";
+                          htmlDinamico += "      </a>    \n";
+                          htmlDinamico += "  </div>   \n";
                           htmlDinamico += divCierre;
                         
 
@@ -256,6 +259,7 @@ function mostrarNivel2(idNivel1){
 
           //$("#menuDinamico").html(html + html2);
           alert(htmlDinamicoCuerpo);
+          console.log(htmlDinamicoCuerpo);
           $("#menuDinamico").html(htmlDinamicoCuerpo);
 
 

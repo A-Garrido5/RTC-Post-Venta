@@ -161,7 +161,6 @@ function mostrarNivel2(idNivel1){
       },
       error: function (xhr, ajaxOptions, thrownError) {
           alert(JSON.stringify(thrownError));
-          alert(JSON.stringify(xhr));
       }
   });
 

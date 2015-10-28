@@ -4821,6 +4821,14 @@ header.small .row > div span {
   padding-top: 30px;
   width: 50%;
 }
+
+.row .col-center{
+  position: relative;
+  left: 42%;
+
+  
+}
+
 .color-box {
   background-color: #B28973;
   color: #FFFFFF;
@@ -6042,7 +6050,3 @@ input[type=checkbox]
   margin-left: 25px;
 }
 
-.facebook-button {
-  background: url('facebook-logo.png') left center no-repeat;
-  padding-left: 15px;
-}

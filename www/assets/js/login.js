@@ -39,8 +39,8 @@
     }
 
     $('#botonLogin').click(function() { 
-            var datosUsuario = $("#nombredeusuario").val()
-            var datosPassword = $("#clave").val()
+            var datosUsuario = $("#nombredeusuario").val();
+            var datosPassword = $("#clave").val();
             var cripto = window.btoa(datosUsuario+'|'+datosPassword);
             login(cripto);
     });

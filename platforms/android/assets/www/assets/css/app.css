@@ -4791,6 +4791,7 @@ header.small .row > div {
   padding: 0 10px;
 }
 header.small .row > div span {
+  text-align: center;
   float: right;
   color: #9B9B9B;
 }
@@ -4816,6 +4817,10 @@ header.small .row > div span {
   width: 33.333333333333336%;
 }
 
+.row .col-50 {
+  padding-top: 30px;
+  width: 50%;
+}
 .color-box {
   background-color: #B28973;
   color: #FFFFFF;
@@ -6004,13 +6009,16 @@ td.right{
 
 .boton-foto {
   
-  margin-left: auto;
-  margin-right: auto;
-  
-  font-size:1.25em;
-  
-  text-align:center;
-  width:150px;
+  background-color: #13AFDF; 
+  border-radius: 6px;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 16px 24px;
+  text-align: center;
+  text-transform: uppercase;
+  width: auto;
   
 }
 
@@ -6032,4 +6040,9 @@ input[type=checkbox]
   -webkit-transform: scale(2); /* Safari and Chrome */
   -o-transform: scale(2); /* Opera */
   margin-left: 25px;
+}
+
+.facebook-button {
+  background: url('facebook-logo.png') left center no-repeat;
+  padding-left: 15px;
 }

@@ -48,10 +48,12 @@ function obtenerRegiones(){
           },
           error:function (xhr, ajaxOptions, thrownError) {
              alert(JSON.stringify(thrownError));
-             alert(JSON.stringify(xhr));
+             
           }
     });
 }
+
+
 
 function obtenerCiudades(){
 
@@ -60,8 +62,8 @@ function obtenerCiudades(){
   var ciudad = $('#city').empty();
 
   ciudad.append($('<option>', { 
-                        value: "-",
-                        text : "Seleccionar ..."
+                        value: 0,
+                        text : ".Seleccionar."
   }));
 
   var urlGetCity ="http://sae1.imatronix.com:2614/WEBAPI_SERVICE/api/Ciudad/"+region;
@@ -79,17 +81,17 @@ function obtenerCiudades(){
 
                var jsonObject = eval(json);
 
-               //alert(JSON.stringify(json));
+
 
               
 
                for (var n = 0; n < jsonObject.length; n++) {
-                    //selectObject.append(new Option(jsonObject[n].glosa, jsonObject[n].idRegion.value));
+        
                     ciudad.append($('<option>', { 
                         value: jsonObject[n].idCiudad,
                         text : jsonObject[n].glosa
                     }));
-               };
+               }
             }
 
                
@@ -98,7 +100,7 @@ function obtenerCiudades(){
           },
           error:function (xhr, ajaxOptions, thrownError) {
              alert(JSON.stringify(thrownError));
-             alert(JSON.stringify(xhr));
+             
           }
     });
 
@@ -112,8 +114,8 @@ function obtenerComunas(){
   var comuna = $('#comuna').empty();
 
   comuna.append($('<option>', { 
-                        value: "-",
-                        text : "Seleccionar ..."
+                        value: 0,
+                        text : ".Seleccionar."
   }));
 
   
@@ -134,8 +136,6 @@ function obtenerComunas(){
 
                var jsonObject = eval(json);
 
-              // alert(JSON.stringify(json));
-
               
 
                for (var n = 0; n < jsonObject.length; n++) {
@@ -153,7 +153,7 @@ function obtenerComunas(){
           },
           error:function (xhr, ajaxOptions, thrownError) {
              alert(JSON.stringify(thrownError));
-             alert(JSON.stringify(xhr));
+             
           }
     });
 
@@ -201,17 +201,17 @@ function validarCampos(){
     errores++;
   }
 
-  if($("#region").val()==='-'){
+  if($("#region").val()===0){
     alert("Region inválida");
     errores++;
   }
 
-  if($("#city").val()==='-'){
+  if($("#city").val()===0){
     alert("Ciudad inválida");
     errores++;
   }
 
-  if($("#comuna").val()==='-'){
+  if($("#comuna").val()===0){
     alert("Comuna inválida");
     errores++;
   }
@@ -244,23 +244,18 @@ function crearUsuario(nombres, apellidos, mail, contrasena, telefono, celular, d
                   };
 
 
-
-
-
   $.ajax({
            
-            //dataType: 'json',
+            
             url: "http://sae1.imatronix.com:2614/WEBAPI_SERVICE/api/Usuario",
             type: "POST",
             contentType:"application/json; charset=utf-8",
-            //dataType:"json",
-            //dataType: "json",
             data: JSON.stringify(dataUsuario),
 
             
            
             success: function (result) {
-                alert("Usuario creado exitosamente");
+                showAlert("Usuario creado exitosamente");
 
                 redirigir("login.html");
 
@@ -268,7 +263,7 @@ function crearUsuario(nombres, apellidos, mail, contrasena, telefono, celular, d
            
             error: function (xhr,status,p3,p4) {
            
-                alert("error:" + JSON.stringify(xhr));
+                alert(xhr.responseJSON.Message);
             }
     });
 
@@ -312,8 +307,8 @@ $("#region").change(function(){
   var comuna = $('#comuna').empty();
 
     comuna.append($('<option>', { 
-                          value: "-",
-                          text : "Seleccionar ..."
+                          value: 0,
+                          text : ".Seleccionar."
     }));
   
   if($("#region").val()!='-'){
@@ -325,8 +320,8 @@ $("#region").change(function(){
     var ciudad = $('#city').empty();
 
     ciudad.append($('<option>', { 
-                          value: "-",
-                          text : "Seleccionar ..."
+                          value: 0,
+                          text : ".Seleccionar."
     }));
 
 
@@ -348,13 +343,39 @@ $("#city").change(function(){
     var comuna = $('#comuna').empty();
 
     comuna.append($('<option>', { 
-                          value: "-",
+                          value: 0,
                           text : "Seleccionar ..."
     }));
 
   }
         
 });
+
+
+document.addEventListener("deviceready", onDeviceReady, false);
+
+    // device APIs are available
+    //
+    function onDeviceReady() {
+        // Empty
+    }
+
+    // alert dialog dismissed
+        function alertDismissed() {
+            // do something
+        }
+
+    // Show a custom alertDismissed
+    //
+    function showAlert(message) {
+        navigator.notification.alert(
+            message,                // message
+            alertDismissed,         // callback
+            'Aviso',            // title
+            'Ok'                  // buttonName
+        );
+    }
+
 
 
 

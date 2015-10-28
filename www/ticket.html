@@ -1,138 +1,121 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport"content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-    <link rel="apple-touch-icon" sizes="57x57" href="/assets/img/favicons/apple-touch-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="/assets/img/favicons/apple-touch-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="/assets/img/favicons/apple-touch-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/favicons/apple-touch-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="/assets/img/favicons/apple-touch-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="/assets/img/favicons/apple-touch-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="/assets/img/favicons/apple-touch-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="/assets/img/favicons/apple-touch-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon-180x180.png">
-    <link rel="icon" type="image/png" href="/assets/img/favicons/favicon-32x32.png" sizes="32x32">
-    <link rel="icon" type="image/png" href="/assets/img/favicons/android-chrome-192x192.png" sizes="192x192">
-    <link rel="icon" type="image/png" href="/assets/img/favicons/favicon-96x96.png" sizes="96x96">
-    <link rel="icon" type="image/png" href="/assets/img/favicons/favicon-16x16.png" sizes="16x16">
-    <link rel="manifest" href="/assets/img/favicons/manifest.json">
-    <meta name="msapplication-TileColor" content="#2b5797">
-    <meta name="msapplication-TileImage" content="/assets/img/favicons/mstile-144x144.png">
-    <meta name="theme-color" content="#ffffff">
+        <link rel="apple-touch-icon" sizes="57x57" href="/assets/img/favicons/apple-touch-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="/assets/img/favicons/apple-touch-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="/assets/img/favicons/apple-touch-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/favicons/apple-touch-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="/assets/img/favicons/apple-touch-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/assets/img/favicons/apple-touch-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="/assets/img/favicons/apple-touch-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/assets/img/favicons/apple-touch-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon-180x180.png">
+        <link rel="icon" type="image/png" href="/assets/img/favicons/favicon-32x32.png" sizes="32x32">
+        <link rel="icon" type="image/png" href="/assets/img/favicons/android-chrome-192x192.png" sizes="192x192">
+        <link rel="icon" type="image/png" href="/assets/img/favicons/favicon-96x96.png" sizes="96x96">
+        <link rel="icon" type="image/png" href="/assets/img/favicons/favicon-16x16.png" sizes="16x16">
+        <link rel="manifest" href="/assets/img/favicons/manifest.json">
+        <meta name="msapplication-TileColor" content="#2b5797">
+        <meta name="msapplication-TileImage" content="/assets/img/favicons/mstile-144x144.png">
+        <meta name="theme-color" content="#ffffff">
 
-    <title>ACSIM RTC PostVenta</title>
+        <title>ACSIM RTC PostVenta</title>
 
-    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="bower_components/framework7/dist/css/framework7.ios.min.css">
-    <link rel="stylesheet" href="bower_components/swipebox/src/css/swipebox.css">
+        <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="bower_components/framework7/dist/css/framework7.ios.min.css">
+        <link rel="stylesheet" href="bower_components/swipebox/src/css/swipebox.css">
 
-    <link rel="stylesheet" href="assets/css/app.css">
-    <!--<link rel="stylesheet" href="assets/themes/town/style.css" id="theme-style">-->
-    <link rel="stylesheet" href="" id="theme-style">
-</head>
-<body>
+        <link rel="stylesheet" href="assets/css/app.css">
+        <link rel="stylesheet" href="" id="theme-style">
+    </head>
 
-<div class="statusbar-overlay"></div>
-<div class="panel-overlay"></div>
+    <body>
 
+        <div class="statusbar-overlay"></div>
+        <div class="panel-overlay"></div>
 
-
-<!-- Views -->
-<div class="views">
-    <div class="view view-main">
-
-        
-
-        <div class="pages navbar-fixed toolbar-fixed">
-            <div data-page="index" class="page page-bg">
-
-                <div class="page-content">
-                    <nav class="dashboard-menu">
-                    
-                    
-                        
-                        
-
-                            <!--<p><label class="label-entrada">Edificio:</label><input type="text" id="edificio"  placeholder="Ingrese el edificio" class="entrada">-->
-                            <label class="label-entrada">Nivel 3:</label><select class="entrada" id="nivel3"><option value="0" selected="selected">.Seleccionar.</option></select> 
-                            <label class="label-entrada">Sitio:</label><select class="entrada" id="edificio"><option value="0" selected="selected">.Seleccionar.</option></select>                            
-                            <label class="label-entrada">Tipo:</label><select class="entrada" id="tipo"><option value="0" selected="selected">.Seleccionar.</option></select>
-                            <label class="label-entrada">Subsitio:</label><select class="entrada" id="categoria"><option value="0" selected="selected">.Seleccionar.</option></select>
-                            
-                            
-
-                            <p><label class="label-entrada">Descripción:</label><br>
-
-                            <textarea id="descripcion" rows="10" class="descripcion">
-
-
-                            
-                            </textarea>
-
-                            <br><br>
-
-                            
-                            <input type="checkbox" value="None" id="roundedOne" name="check" />
-                                                        
-                            <label class="label-entrada">Urgente</label>
-
-                            <br>
-
-                           
-
-                                                    
-                        
-                    </nav>
-
-                    <div class="centrar">
-
-                     <input type="submit" id="TakePicture" align="center" value="Tomar foto" class="boton-foto">
-
-                    <br><br>
-
-                    <img style="display:none;width:90%;height:250px;margin-left: 10px;" id="smallImage" src="" />
-
-                    </div>
-
-                    
-
-                    <div class="form-row">
-                        <br><br>
-                         <br><br>
-                        <input type ="submit" class="boton-cancelar" id="cancel" value="Cancelar"> <input type ="submit" class="boton-aceptar" id="accept" value="Aceptar">
-                    </div>
-
-                    
-
-                </div>
+        <!-- Views -->
+        <div class="views">
+            <div class="view view-main">
 
                 
+
+                <div class="pages navbar-fixed toolbar-fixed">
+                    <div data-page="index" class="page page-bg">
+
+                        <div class="page-content">
+                            <nav class="dashboard-menu">                     
+                                   
+                                <label class="label-entrada">Nivel 3:</label><select class="entrada" id="nivel3"><option value="0" selected="selected">.Seleccionar.</option></select> 
+                                <label class="label-entrada">Sitio:</label><select class="entrada" id="edificio"><option value="0" selected="selected">.Seleccionar.</option></select>                            
+                                <label class="label-entrada">Tipo:</label><select class="entrada" id="tipo"><option value="0" selected="selected">.Seleccionar.</option></select>
+                                <label class="label-entrada">Subsitio:</label><select class="entrada" id="categoria"><option value="0" selected="selected">.Seleccionar.</option></select>
+                                
+                                
+
+                                <p><label class="label-entrada">Descripción:</label><br>
+
+                                <textarea id="descripcion" rows="10" class="descripcion"></textarea>
+
+                                <br><br>
+
+                                
+                                <input type="checkbox" value="None" id="roundedOne" name="check" />
+                                                            
+                                <label class="label-entrada">Urgente</label>
+
+                                <br>
+
+                                   
+
+                                                            
+                                
+                            </nav>
+
+                            <div class="centrar">
+                                
+                                
+
+                                <br><br>
+
+                                <img style="display:none;width:90%;height:250px;margin-left: 10px;" id="smallImage" src="" />
+
+                            </div>
+
+                            
+
+                            <div class="form-row">
+                                <br><br>
+                                <br><br>
+                                <input type ="submit" class="boton-cancelar" id="cancel" value="Cancelar"> <input type ="submit" class="boton-aceptar" id="accept" value="Aceptar">
+                            </div>
+
+                            
+
+                        </div>
+
+                        
+                    </div>
+                </div>
+
             </div>
         </div>
 
-    </div>
-</div>
+        <!-- Picker -->
+        <div class="picker-modal picker-social"></div>
 
-
-
-
-<!-- Picker -->
-<div class="picker-modal picker-social">
-  
-</div>
-
-<script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
-<script type="text/javascript" src="bower_components/framework7/dist/js/framework7.min.js"></script>
-<script type="text/javascript" src="bower_components/swipebox/src/js/jquery.swipebox.min.js"></script>
-<script type="text/javascript" src="bower_components/jquery-validation/dist/jquery.validate.min.js"></script>
-<script type="text/javascript" src="assets/js/ticket.js"></script>
-<script type="text/javascript" src="cordova.js"></script>
-<script type="text/javascript" src="assets/js/jflickrfeed.min.js"></script>
-<script type="text/javascript" src="assets/js/min/app.js"></script>
-</body>
+        <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+        <script type="text/javascript" src="bower_components/framework7/dist/js/framework7.min.js"></script>
+        <script type="text/javascript" src="bower_components/swipebox/src/js/jquery.swipebox.min.js"></script>
+        <script type="text/javascript" src="bower_components/jquery-validation/dist/jquery.validate.min.js"></script>
+        <script type="text/javascript" src="assets/js/ticket.js"></script>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="assets/js/jflickrfeed.min.js"></script>
+        <script type="text/javascript" src="assets/js/min/app.js"></script>
+    </body>
 </html>

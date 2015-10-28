@@ -6,16 +6,16 @@ function onDeviceReady() {
 	destinationType = navigator.camera.DestinationType;
 
   
-    if (navigator.notification) { // Si disponemos de notificaciones nativas, sobreescribimos el alert del navegador:
-            window.alert = function (message) {
-                    navigator.notification.alert(
-                    message,    // mensaje
-                    null,       // función de callback
-                    "Workshop", // título
-                    'OK'        // Nombre botón
-            );
-          };
-    }	  
+  if (navigator.notification) { // Si disponemos de notificaciones nativas, sobreescribimos el alert del navegador:
+          window.alert = function (message) {
+                  navigator.notification.alert(
+                  message,    // mensaje
+                  null,       // función de callback
+                  "Workshop", // título
+                  'OK'        // Nombre botón
+          );
+        };
+  }	  
 
 }
 
@@ -66,8 +66,8 @@ function sendData(imageData){
 	//alert("Foto tomada exitosamente");
 
 	var image = document.getElementById('smallImage');
-    image.src = imageData;
-    image.style.display="";
+  image.src = imageData;
+  image.style.display="";
 
 
 }
@@ -85,14 +85,10 @@ function obtenerNivel3(){
 
             if (json != "") {
 
-               //var selectObject = $('#edificio');
-
                var jsonObject = eval(json);
 
-                
-
                for (var n = 0; n < jsonObject.length; n++) {
-                    //selectObject.append(new Option(jsonObject[n].glosa, jsonObject[n].idRegion.value));
+       
                    $('#nivel3').append($('<option>', { 
                         value: jsonObject[n].idNivel3,
                         text : jsonObject[n].glosa
@@ -106,7 +102,6 @@ function obtenerNivel3(){
           },
           error:function (xhr, ajaxOptions, thrownError) {
              alert(JSON.stringify(thrownError));
-             alert(JSON.stringify(xhr));
           }
     });
 
@@ -123,23 +118,22 @@ function guardaTicket(sitio,categoria,tipo,descripcion,urgente){
 
 	var idNivel3 = $('#nivel3').val();
 
-	  $.ajax({
-           
-            //dataType: 'json',, 
-            url: "http://sae1.imatronix.com:2614/WEBAPI_SERVICE/api/Ticket",
-            type: "POST",
-            data: {"descripcion": descripcion, "urgente": urgente, "token": token, "idSitio":sitio  ,"idSubsitio": categoria,"idTipo":tipo,"idNivel1":idNivel1,"idNivel2":idNivel2,"idNivel3":idNivel3},
-            
-           
-            success: function (result) {
-                alert("Se ha creado un ticket número: " + result);
-            },
-           
-            error: function (xhr,status,p3,p4) {
-           
-                alert("error:");
-            }
-    });
+	$.ajax({
+          url: "http://sae1.imatronix.com:2614/WEBAPI_SERVICE/api/Ticket",
+          type: "POST",
+          data: {"descripcion": descripcion, "urgente": urgente, "token": token, "idSitio":sitio  ,"idSubsitio": categoria,"idTipo":tipo,"idNivel1":idNivel1,"idNivel2":idNivel2,"idNivel3":idNivel3},
+          
+         
+          success: function (result) {
+              showAlert("Se ha creado un ticket número: " + result);
+              location.href="index.html"
+          },
+         
+          error: function (xhr,status,p3,p4) {
+         
+              alert("error:");
+          }
+  });
 
 }
 
@@ -152,20 +146,17 @@ function uploadPhoto(imageURI) {
 
 	var nombreArchivo = imageURI.substr(imageURI.lastIndexOf('/')+1);
 
-    var options = new FileUploadOptions();
-    options.fileKey="file";
-    options.fileName= nombreUsuario+"-"+nombreArchivo;
-    options.mimeType="image/jpeg";
+  var options = new FileUploadOptions();
+  options.fileKey="file";
+  options.fileName= nombreUsuario+"-"+nombreArchivo;
+  options.mimeType="image/jpeg";
 
-    var params = new Object();
-    params.value1 = "Hola mundo";
-    params.value2 = "Priueba";
-    params.value3 = "adrian";
+  var params = new Object();
 
-    options.params = params;
+  options.params = params;
 
-    var ft = new FileTransfer();
-    ft.upload(imageURI, encodeURI("http://sae1.imatronix.com:2614/WEBAPI_SERVICE/api/Documento"), win, fail, options);
+  var ft = new FileTransfer();
+  ft.upload(imageURI, encodeURI("http://sae1.imatronix.com:2614/WEBAPI_SERVICE/api/Documento"), win, fail, options);
 
 
     
@@ -174,13 +165,11 @@ function uploadPhoto(imageURI) {
 
 function win(r) {
 	
-  alert("Foto enviada");
 }
 
 function fail(error) {
     alert("An error has occurred: Code = " + error.code);
-    console.log("upload error source " + error.source);
-    console.log("upload error target " + error.target);
+    
 }
 
 
@@ -190,10 +179,10 @@ function capturePhoto() {
 
 
 	navigator.camera.getPicture(sendData,
-        function(message) { alert('get picture failed'); },
+        function(message) { alert('Fallo la captura de la foto'); },
         { quality: 30, 
             destinationType: navigator.camera.DestinationType.FILE_URI
-         }   //sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY }
+         }  
         );
 
 }
@@ -202,7 +191,7 @@ function capturePhoto() {
 
 function onFail(message) {
 
-	alert('Failed because: ' + message);
+	alert('Fallo ocurrido:  ' + message);
 
 }
 
@@ -227,7 +216,7 @@ function obtenerSitios(){
                 
 
                for (var n = 0; n < jsonObject.length; n++) {
-                    //selectObject.append(new Option(jsonObject[n].glosa, jsonObject[n].idRegion.value));
+                  
                     $('#edificio').append($('<option>', { 
                         value: jsonObject[n].idSitio,
                         text : jsonObject[n].nombre
@@ -241,7 +230,7 @@ function obtenerSitios(){
           },
           error:function (xhr, ajaxOptions, thrownError) {
              alert(JSON.stringify(thrownError));
-             alert(JSON.stringify(xhr));
+             
           }
     });
 
@@ -427,3 +416,26 @@ $("#tipo").change(function(){
 	
         
 });
+
+document.addEventListener("deviceready", onDeviceReady, false);
+
+  
+  
+  function onDeviceReady() {
+      
+  }
+
+  
+      function alertDismissed() {
+         
+      }
+
+  
+  function showAlert(message) {
+      navigator.notification.alert(
+          message,                
+          alertDismissed,         
+          'Aviso',            
+          'Ok'                  
+      );
+    }

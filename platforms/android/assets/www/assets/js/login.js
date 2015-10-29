@@ -1,10 +1,11 @@
-    function login(datos){
-	    var urlLogin="http://sae1.imatronix.com:2614/WEBAPI_SERVICE/api/Login/"+datos;
+    function login(usuario, password){
+	    var urlLogin="http://sae1.imatronix.com:2614/WEBAPI_SERVICE/api/Login/";
 
 	    $.ajax({
 	        url: urlLogin,
-	        type: "GET",
+	        type: "POST",
 	        dataType: "json",
+            data: {"usuario": usuario, "password": password},
 	        success: function (json) {
 
               
@@ -41,8 +42,15 @@
     $('#botonLogin').click(function() { 
             var datosUsuario = $("#nombredeusuario").val();
             var datosPassword = $("#clave").val();
-            var cripto = window.btoa(datosUsuario+'|'+datosPassword);
-            login(cripto);
+            //var cripto = window.btoa(datosUsuario+'|'+datosPassword);
+            var usuarioEncriptado=window.btoa(datosUsuario);
+            var claveEncriptada=window.btoa(datosPassword);
+
+            alert(usuarioEncriptado);
+
+            alert(claveEncriptada);
+
+            login(usuarioEncriptado,claveEncriptada);
     });
 
 

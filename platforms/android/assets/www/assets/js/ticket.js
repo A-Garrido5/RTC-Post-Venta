@@ -5,22 +5,8 @@ function onDeviceReady() {
 
 	destinationType = navigator.camera.DestinationType;
 
-  
-  if (navigator.notification) { // Si disponemos de notificaciones nativas, sobreescribimos el alert del navegador:
-          window.alert = function (message) {
-                  navigator.notification.alert(
-                  message,    // mensaje
-                  null,       // función de callback
-                  "Workshop", // título
-                  'OK'        // Nombre botón
-          );
-        };
-  }	  
 
 }
-
- 
-
 
 
 $(document).ready(function (){
@@ -38,8 +24,6 @@ $(document).ready(function (){
 
 
 });
-
-$('#descripcion').val(null);
 
 
     
@@ -107,7 +91,19 @@ function obtenerNivel3(){
 
 }
 
+function obtenerNombreFoto () {
+  
+
+    var nombreFoto = (document.getElementById('smallImage').src).substr((document.getElementById('smallImage').src).lastIndexOf('/')+1);
+
+    //showAlert(nombreFoto);
+
+    return nombreFoto;
+}
+
 function guardaTicket(sitio,categoria,tipo,descripcion,urgente){
+
+  
 
 	
 	var token = localStorage.getItem("token");
@@ -118,10 +114,13 @@ function guardaTicket(sitio,categoria,tipo,descripcion,urgente){
 
 	var idNivel3 = $('#nivel3').val();
 
+
+  var nombreFoto=obtenerNombreFoto();
+
 	$.ajax({
           url: "http://sae1.imatronix.com:2614/WEBAPI_SERVICE/api/Ticket",
           type: "POST",
-          data: {"descripcion": descripcion, "urgente": urgente, "token": token, "idSitio":sitio  ,"idSubsitio": categoria,"idTipo":tipo,"idNivel1":idNivel1,"idNivel2":idNivel2,"idNivel3":idNivel3},
+          data: {"descripcion": descripcion, "urgente": urgente, "token": token, "idSitio":sitio  ,"idSubsitio": categoria,"idTipo":tipo,"idNivel1":idNivel1,"idNivel2":idNivel2,"idNivel3":idNivel3,"documentosCarga":nombreFoto},
           
          
           success: function (result) {
@@ -130,7 +129,7 @@ function guardaTicket(sitio,categoria,tipo,descripcion,urgente){
           },
          
           error: function (xhr,status,p3,p4) {
-         
+                       
               alert("error:");
           }
   });

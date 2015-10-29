@@ -6050,3 +6050,34 @@ input[type=checkbox]
   margin-left: 25px;
 }
 
+
+
+
+
+.btn {
+    float: left;
+    clear: both;
+    background: url(img/logo.png) no-repeat;
+    padding: 0 0 0 10px;
+    margin: 5px 0;
+}
+.btn a{
+    float: left;
+    height: 40px;
+    background: url(img/logo.png) repeat-x left top;
+    line-height: 40px;
+    padding: 0 10px;
+    color: #fff;
+    font-size: 1em;
+    text-decoration: none;
+}
+.btn span {
+    background: url(img/logo.png) no-repeat;
+    float: left;
+    width: 10px;
+    height: 40px;
+}
+.btn_gray {background-color: #808080;}
+.btn_green { background-color: #ADFF2F;}
+.btn_blue {background-color: #0000CD;}
+.btn_red {background-color: #DC143C;}

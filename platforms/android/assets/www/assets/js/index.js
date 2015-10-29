@@ -3,7 +3,8 @@ $(document).ready(function () {
 
 
 
-    var value = window.localStorage.getItem("username");
+    var value = window.localStorage.getItem("token");
+    var username = window.localStorage.getItem("username");
 
     if (value === null) {
 
@@ -15,7 +16,7 @@ $(document).ready(function () {
     else {
         mostrarMenu();
 
-        $('#nameRight').text(value);
+        $('#nameRight').text(username);
     }
 
 
@@ -35,7 +36,7 @@ function redirigirTicket(nivel1,nivel2) {
 }
 
 function logout(){
-  localStorage.removeItem("username");
+  localStorage.removeItem("token");
   location.href="login.html";
 }
 

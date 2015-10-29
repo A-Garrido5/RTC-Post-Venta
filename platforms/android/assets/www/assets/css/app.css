@@ -6081,3 +6081,13 @@ input[type=checkbox]
 .btn_green { background-color: #ADFF2F;}
 .btn_blue {background-color: #0000CD;}
 .btn_red {background-color: #DC143C;}
+
+
+table, th, td {
+   border: 1px solid black;
+
+} 
+
+table {
+    width: 100%;
+}

@@ -201,17 +201,17 @@ function validarCampos(){
     errores++;
   }
 
-  if($("#region").val()===0){
+  if($("#region").val()==0){
     alert("Region inválida");
     errores++;
   }
 
-  if($("#city").val()===0){
+  if($("#city").val()==0){
     alert("Ciudad inválida");
     errores++;
   }
 
-  if($("#comuna").val()===0){
+  if($("#comuna").val()==0){
     alert("Comuna inválida");
     errores++;
   }
@@ -287,7 +287,6 @@ $('#sendToCreate').click(function() {
         var idComuna = $("#comuna").val();
 
 
-        
 
         if(esValido){
           

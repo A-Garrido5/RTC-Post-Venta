@@ -14,7 +14,7 @@
 	                alert(json.mensaje);
 	            }
 	            else {
-	            	showAlert("Ingreso existoso");
+	            	
 	                $('#nameRight').text(json.nombres);
 	                localStorage.setItem("username", json.nombres);
 	                localStorage.setItem("token", json.tokenUsuario);
@@ -34,7 +34,7 @@
     function isNumber(e) {
           k = (document.all) ? e.keyCode : e.which;
           if (k==8 || k==0 || k==190) return true;
-          patron = /\w./ ;
+          patron = /\w/ ;
           n = String.fromCharCode(k);
           return patron.test(n);
     }

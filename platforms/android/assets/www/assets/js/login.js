@@ -46,9 +46,6 @@
             var usuarioEncriptado=window.btoa(datosUsuario);
             var claveEncriptada=window.btoa(datosPassword);
 
-            alert(usuarioEncriptado);
-
-            alert(claveEncriptada);
 
             login(usuarioEncriptado,claveEncriptada);
     });

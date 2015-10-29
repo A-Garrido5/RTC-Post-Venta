@@ -34,6 +34,8 @@
     <link rel="stylesheet" href="demo-files/demo.css">
     <link rel="stylesheet" href="style.css">
 
+    <link rel="stylesheet" type="text/css" href="assets/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="assets/font-awesome.min.css">
 
     <link rel="stylesheet" href="assets/css/app.css">
    <!-- <link rel="stylesheet" href="" id="theme-style">-->
@@ -64,7 +66,7 @@
         <div class="list-group">
             <nav>
                 <ul>
-                    <li>
+                   <!-- <li>
                         <a href="index.html" class="item-link close-panel item-content">
                             <div class="item-media">
                                 <i class="fa fa-user"></i>
@@ -73,18 +75,18 @@
                                 <div class="item-title">Profile</div>
                             </div>
                         </a>
-                    </li>
+                    </li>-->
                     <li>
-                        <a href="settings.html" class="item-link close-panel item-content">
+                        <a class="item-link close-panel item-content" onclick="redirigir(request.html);">
                             <div class="item-media">
                                 <i class="fa fa-cog"></i>
                             </div>
                             <div class="item-inner">
-                                <div class="item-title">Settings</div>
+                                <div class="item-title">Mis solicitudes</div>
                             </div>
                         </a>
                     </li>
-                    <li>
+                    <!--<li>
                         <a href="index.html" class="item-link close-panel item-content">
                             <div class="item-media">
                                 <i class="fa fa-envelope"></i>
@@ -93,8 +95,8 @@
                                 <div class="item-title">Messages</div>
                             </div>
                         </a>
-                    </li>
-                    <li>
+                    </li> -->
+                    <!--<li>
                         <a href="index.html" class="item-link close-panel item-content">
                             <div class="item-media">
                                 <i class="fa fa-heart-o"></i>
@@ -103,7 +105,8 @@
                                 <div class="item-title">I Like It</div>
                             </div>
                         </a>
-                    </li>
+                    </li> -->
+                    <!--
                     <li>
                         <a href="index.html" class="item-link close-panel item-content">
                             <div class="item-media">
@@ -113,14 +116,14 @@
                                 <div class="item-title">Friends</div>
                             </div>
                         </a>
-                    </li>
+                    </li>-->
                     <li>
                         <a href="index.html" class="item-link close-panel item-content" onclick="logout();return false;">
                             <div class="item-media">
                                 <i class="fa fa-sign-out"></i>
                             </div>
                             <div class="item-inner">
-                                <div class="item-title">Logout</div>
+                                <div class="item-title">Cerrar sesión</div>
                             </div>
                         </a>
                     </li>
@@ -181,7 +184,24 @@
                                 </select>
 
                              <!--<div class="btn btn_red"><span class="icon"></span><a href="#">Crimson</a><span></span></div>-->
+                             <!--
+                             <div class='row text-center'>
 
+                                 <div class='col-50'>
+                                       <a href='#' onclick='redirigirTicket(1,1);return false;' class='menu-link'>
+                                          <span class='fa fa-plug'></span>
+                                          <span>Luz</span>
+                                       </a>
+                                   </div>
+                                   <div class='col-50'>
+                                       <a href='about.html' class='menu-link' onclick='redirigirTicket(1,2);return false;'>
+                                          <span class='icon-folder'></span>
+                                          <span>Agua</span>
+                                       </a>
+                                   </div>
+
+                            </div>
+                            -->
                             <div id="menuDinamico">
                             </div>
 

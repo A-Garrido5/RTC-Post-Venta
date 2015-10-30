@@ -101,7 +101,7 @@ function obtenerNombreFoto () {
     return nombreFoto;
 }
 
-function guardaTicket(sitio,categoria,tipo,descripcion,urgente){
+function guardaTicket(sitio,categoria,tipo,descripcion,urgente,idNivel3){
 
   
 
@@ -112,7 +112,7 @@ function guardaTicket(sitio,categoria,tipo,descripcion,urgente){
 
 	var idNivel2 = getUrlVars()["idNivel2"];
 
-	var idNivel3 = $('#nivel3').val();
+	
 
 
   var nombreFoto=obtenerNombreFoto();
@@ -334,7 +334,45 @@ function getUrlVars(){
     return vars;
 }
 
-$('#accept').click(function() { 
+function validarCampos(sitio,categoria,tipo,descripcion,idNivel3){
+
+  var errores=0;
+
+
+  if (idNivel3==0) {
+    alert("Nivel 3 inválido");
+    errores++;
+  }
+
+  if(sitio==0){
+    alert("Sitio inválido");
+    errores++;
+
+  }
+
+  if(tipo==0){
+    alert("Tipo inválido");
+    errores++;
+  }
+
+  if (descripcion=="") {
+    alert("Descripcion inválida");
+    errores++;
+  }
+
+  if (errores>0) {
+    alert("Errores: "+errores);
+    return false;
+  }
+
+  else{
+    return true;
+  }
+
+}
+
+$('#accept').click(function() {
+
 
 	var sitio=$('#edificio').val();
 
@@ -345,6 +383,10 @@ $('#accept').click(function() {
 	var descripcion=$('#descripcion').val();
 
 	var urgente = $('#roundedOne').is(':checked');
+
+  var idNivel3 = $('#nivel3').val();
+
+  var esValido=validarCampos(sitio,categoria,tipo,descripcion,idNivel3);
 
 	if(document.getElementById("smallImage").style.display!="none"){
 		
@@ -357,10 +399,14 @@ $('#accept').click(function() {
 		
 	}
 
+  if (esValido) {
+          
+      uploadPhoto(document.getElementById('smallImage').src);
 
-	uploadPhoto(document.getElementById('smallImage').src);
+      guardaTicket(sitio,categoria,tipo,descripcion,urgente,idNivel3);    
+  }
 
-	guardaTicket(sitio,categoria,tipo,descripcion,urgente);
+
 	//enviarTicket(edificio,criticidad,categoria,descripcion,urgente,foto);
 
 

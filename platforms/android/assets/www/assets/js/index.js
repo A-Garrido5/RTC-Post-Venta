@@ -1,7 +1,7 @@
 
 $(document).ready(function () {
 
-    //location.href = "request.html";
+    location.href = "request.html";
 
     var value = window.localStorage.getItem("token");
     var username = window.localStorage.getItem("username");

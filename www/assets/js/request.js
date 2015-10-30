@@ -39,6 +39,28 @@ function obtenerSolicitudes(){
 	         	*/
 
 	         	for(var i=0;i<jsonObject.length;i++){
+	         		var indice = json[i].fechaIngreso.indexOf("T");
+	         		var fecha = json[i].fechaIngreso.substr(0,10);
+
+	         		//var hora = json[i].fechaIngreso.substr(11,15);
+
+	         		var stringHora= json[i].fechaIngreso.toString();
+
+	         		var hora=stringHora.slice(11,16);
+	         		
+	         		//alert(json[i].fechaIngreso.lastIndexOf(":"));
+
+	         		var urgente;
+
+	         		if(json[i].urgente==true){
+	         			urgente="Si"
+	         		}
+
+	         		else{
+	         			urgente="No"
+	         		}
+
+	         		//alert(hora);
 
 	         		var j = i+1;
 
@@ -52,9 +74,35 @@ function obtenerSolicitudes(){
 	         		htmlDinamico+="			<tr class='ui-bar-d'>";
 	           		htmlDinamico+="				<td><strong style='font-size: 20px;'>Sitio:</strong></td>"
 	         		htmlDinamico+="				<td><strong style='font-size: 20px;'>"+json[i].nombreSitio;+"</strong></td>"
+	         		htmlDinamico+="			<tr class='ui-bar-d'>";
+	         		htmlDinamico+="				<td><strong style='font-size: 20px;'>Tipo:</strong></td>"
+	         		htmlDinamico+="				<td><strong style='font-size: 20px;'>"+json[i].nombreTipo;+"</strong></td>"
+	         		htmlDinamico+="			</tr>";
+	         		htmlDinamico+="			<tr class='ui-bar-d'>";
+	         		htmlDinamico+="				<td><strong style='font-size: 20px;'>Sub-sitio:</strong></td>"
+	         		htmlDinamico+="				<td><strong style='font-size: 20px;'>"+json[i].nombreSubSitio;+"</strong></td>"
+	         		htmlDinamico+="			</tr>";
+	         		htmlDinamico+="			<tr class='ui-bar-d'>";
+	         		htmlDinamico+="				<td><strong style='font-size: 20px;'>Fecha ingreso:</strong></td>"
+	         		htmlDinamico+="				<td><strong style='font-size: 20px;'>"+fecha+"</strong></td>"
+	         		htmlDinamico+="			</tr>";
+	         		htmlDinamico+="			<tr class='ui-bar-d'>";
+	         		htmlDinamico+="				<td><strong style='font-size: 20px;'>Hora :</strong></td>"
+	         		htmlDinamico+="				<td><strong style='font-size: 20px;'>"+hora+"</strong></td>"
+	         		htmlDinamico+="			</tr>";
+	         		htmlDinamico+="			<tr class='ui-bar-d'>";
+	         		htmlDinamico+="				<td><strong style='font-size: 20px;'>Descripción :</strong></td>"
+	         		htmlDinamico+="				<td><strong style='font-size: 20px;'>"+json[i].descripcion+"</strong></td>"
+	         		htmlDinamico+="			</tr>";
+	         		htmlDinamico+="			<tr class='ui-bar-d'>";
+	         		htmlDinamico+="				<td><strong style='font-size: 20px;'>Urgente :</strong></td>"
+	         		htmlDinamico+="				<td><strong style='font-size: 20px;'>"+urgente+"</strong></td>"
 	         		htmlDinamico+="			</tr>";
 	         		htmlDinamico+="		</tbody>";
 	         		htmlDinamico+="</table>"
+	         		htmlDinamico+="<br>"
+	         		htmlDinamico+="<br>"
+	         		htmlDinamico+="<br>"
 	         		htmlDinamico+="<br>"
 
 	         		/*

@@ -1,6 +1,11 @@
 
 $(document).ready(function () {
 
+      //location.href = "guardarLocalStorage.html";
+      //localStorage.removeItem("push");
+    alert(JSON.parse(window.localStorage.getItem("push")));
+
+    localStorage.setItem("URL", "http://sae1.imatronix.com:2614/WEBAPI_SERVICE");
 
     var value = window.localStorage.getItem("token");
     var username = window.localStorage.getItem("username");
@@ -42,7 +47,9 @@ function logout(){
 
 function mostrarMenu(){
 
-  var urlGetLevel ="http://sae1.imatronix.com:2614/WEBAPI_SERVICE/api/Nivel1";
+
+
+  var urlGetLevel =window.localStorage.getItem("URL")+"/api/Nivel1";
   $.ajax({
           url: urlGetLevel,
           type: "GET",
@@ -79,7 +86,7 @@ function mostrarNivel2(idNivel1){
       return;
   }
 
-  var urlGetLevel2 ="http://sae1.imatronix.com:2614/WEBAPI_SERVICE/api/Nivel2/"+idNivel1;
+  var urlGetLevel2 =window.localStorage.getItem("URL")+"/api/Nivel2/"+idNivel1;
   var divApertura = "<div class='row text-center'>";
   var divCierre ="</div>";
   var html = "";

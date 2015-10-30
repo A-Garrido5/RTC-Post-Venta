@@ -17,7 +17,7 @@ function obtenerSolicitudes(){
 	var htmlDinamico="";
 	
 
-	var urlGetRequests ="http://sae1.imatronix.com:2614/WEBAPI_SERVICE/api/Ticket/"+token;
+	var urlGetRequests =window.localStorage.getItem("URL")+"/api/Ticket/"+token;
 
   	$.ajax({
     	    url: urlGetRequests,
@@ -29,28 +29,17 @@ function obtenerSolicitudes(){
 
           		var jsonObject = eval(json);
           		
-          		/*
-	         	alert(json[0].nombreSitio);
-	         	alert(json[0].nombreTipo);
-	         	alert(json[0].nombreSubSitio);
-	         	alert(json[0].fechaIngreso);
-	         	alert(json[0].descripcion);
-	         	alert(json[0].urgente);
-	         	*/
+         
 
 	         	for(var i=0;i<jsonObject.length;i++){
 	         		var indice = json[i].fechaIngreso.indexOf("T");
 	         		var fecha = json[i].fechaIngreso.substr(0,10);
 
-	         		//var hora = json[i].fechaIngreso.substr(11,15);
-
 	         		var stringHora= json[i].fechaIngreso.toString();
 
 	         		var hora=stringHora.slice(11,16);
 	         		
-	         		//alert(json[i].fechaIngreso.lastIndexOf(":"));
-
-	         		var urgente;
+	           		var urgente;
 
 	         		if(json[i].urgente==true){
 	         			urgente="Si"
@@ -60,8 +49,7 @@ function obtenerSolicitudes(){
 	         			urgente="No"
 	         		}
 
-	         		//alert(hora);
-
+	         		
 	         		var j = i+1;
 
 	         		htmlDinamico+="<table data-role='table' id='table-custom-2' class='ui-body-d'>";

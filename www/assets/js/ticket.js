@@ -13,6 +13,7 @@ $(document).ready(function (){
 
 
 
+
     obtenerSitios();
 
     obtenerTipos();
@@ -24,6 +25,31 @@ $(document).ready(function (){
 
 
 });
+
+function checkConnection() {
+      var networkState = navigator.connection.type;
+
+      var states = {};
+      states[Connection.UNKNOWN]  = 'Unknown connection';
+      states[Connection.ETHERNET] = 'Ethernet connection';
+      states[Connection.WIFI]     = 'WiFi connection';
+      states[Connection.CELL_2G]  = 'Cell 2G connection';
+      states[Connection.CELL_3G]  = 'Cell 3G connection';
+      states[Connection.CELL_4G]  = 'Cell 4G connection';
+      states[Connection.CELL]     = 'Cell generic connection';
+      states[Connection.NONE]     = 'No network connection';
+
+      if(states[networkState]=='No network connection'){
+        return false;
+      }
+
+      else{
+        return true;
+      }
+
+      alert('Connection type: ' + states[networkState]);
+}
+
 
 
     
@@ -58,7 +84,7 @@ function sendData(imageData){
 
 function obtenerNivel3(){
 
-	var urlGetLevel3 ="http://sae1.imatronix.com:2614/WEBAPI_SERVICE/api/Nivel3/"+ getUrlVars()["idNivel2"];
+	var urlGetLevel3 =window.localStorage.getItem("URL")+"/api/Nivel3/"+ getUrlVars()["idNivel2"];
 
   $.ajax({
           url: urlGetLevel3,
@@ -104,7 +130,7 @@ function obtenerNombreFoto () {
 function guardaTicket(sitio,categoria,tipo,descripcion,urgente,idNivel3){
 
   
-
+  var idUsuario = window.localStorage.getItem("idUsuario");
 	
 	var token = localStorage.getItem("token");
 
@@ -112,28 +138,37 @@ function guardaTicket(sitio,categoria,tipo,descripcion,urgente,idNivel3){
 
 	var idNivel2 = getUrlVars()["idNivel2"];
 
-	
-
-
   var nombreFoto=obtenerNombreFoto();
+	
+  var datos = {"descripcion": descripcion, "urgente": urgente, "token": token, "idSitio":sitio  ,"idSubsitio": categoria,"idTipo":tipo,"idNivel1":idNivel1,"idNivel2":idNivel2,"idNivel3":idNivel3,"documentosCarga":idUsuario+'_'+nombreFoto}
 
-	$.ajax({
-          url: "http://sae1.imatronix.com:2614/WEBAPI_SERVICE/api/Ticket",
-          type: "POST",
-          data: {"descripcion": descripcion, "urgente": urgente, "token": token, "idSitio":sitio  ,"idSubsitio": categoria,"idTipo":tipo,"idNivel1":idNivel1,"idNivel2":idNivel2,"idNivel3":idNivel3,"documentosCarga":nombreFoto},
-          
-         
-          success: function (result) {
-              showAlert("Se ha creado un ticket número: " + result);
-              location.href="index.html"
-          },
-         
-          error: function (xhr,status,p3,p4) {
-                       
-              alert("error:");
-          }
-  });
+  var estaConectado=checkConnection();
 
+  //alert(estaConectado);
+
+  if(estaConectado){
+
+        	$.ajax({
+                  url: window.localStorage.getItem("URL")+"/api/Ticket",
+                  type: "POST",
+                  data: datos,
+                  
+                 
+                  success: function (result) {
+                      showAlert("Se ha creado un ticket número: " + result);
+                      location.href="index.html"
+                  },
+                 
+                  error: function (xhr,status,p3,p4) {
+                               
+                      alert("error:");
+                  }
+          });
+    }
+
+    else{
+      showAlert("No esta conectado");
+    }
 }
 
 
@@ -141,21 +176,27 @@ function guardaTicket(sitio,categoria,tipo,descripcion,urgente,idNivel3){
 
 function uploadPhoto(imageURI) {
 
-	var nombreUsuario = window.localStorage.getItem("username");
+	var idUsuario = window.localStorage.getItem("idUsuario");
 
 	var nombreArchivo = imageURI.substr(imageURI.lastIndexOf('/')+1);
 
   var options = new FileUploadOptions();
   options.fileKey="file";
-  options.fileName= nombreUsuario+"-"+nombreArchivo;
+  options.fileName= idUsuario+"_"+nombreArchivo;
   options.mimeType="image/jpeg";
 
   var params = new Object();
 
   options.params = params;
 
+  var estaConectado=checkConnection();
+
   var ft = new FileTransfer();
-  ft.upload(imageURI, encodeURI("http://sae1.imatronix.com:2614/WEBAPI_SERVICE/api/Documento"), win, fail, options);
+
+  if(estaConectado){
+    ft.upload(imageURI, encodeURI(window.localStorage.getItem("URL")+"/api/Documento"), win, fail, options);
+  }
+
 
 
     
@@ -197,7 +238,7 @@ function onFail(message) {
 
 function obtenerSitios(){
 
-	var urlGetSitio ="http://sae1.imatronix.com:2614/WEBAPI_SERVICE/api/Sitio";
+	var urlGetSitio =window.localStorage.getItem("URL")+"/api/Sitio";
 
   $.ajax({
           url: urlGetSitio,
@@ -237,7 +278,7 @@ function obtenerSitios(){
 
 function obtenerTipos(){
 
-  var urlGetTipo ="http://sae1.imatronix.com:2614/WEBAPI_SERVICE/api/SubsitioTipo";
+  var urlGetTipo =window.localStorage.getItem("URL")+"/api/SubsitioTipo";
 
   $.ajax({
           url: urlGetTipo,
@@ -278,7 +319,7 @@ function obtenerTipos(){
 
 function obtenerCategoria(idSitio, idTipo){
 
-	var urlGetCategoria ="http://sae1.imatronix.com:2614/WEBAPI_SERVICE/api/Subsitio";
+	var urlGetCategoria =window.localStorage.getItem("URL")+"/api/Subsitio";
 
 
   $.ajax({
@@ -337,31 +378,36 @@ function getUrlVars(){
 function validarCampos(sitio,categoria,tipo,descripcion,idNivel3){
 
   var errores=0;
+  var corregir="Debe corregir: \n\n"
 
 
   if (idNivel3==0) {
-    alert("Nivel 3 inválido");
+    //alert("Nivel 3 inválido");
+    corregir+="- Nivel 3\n"
     errores++;
   }
 
   if(sitio==0){
-    alert("Sitio inválido");
+    //alert("Sitio inválido");
+    corregir+="- Sitio\n"
     errores++;
 
   }
 
   if(tipo==0){
-    alert("Tipo inválido");
+    //alert("Tipo inválido");
+    corregir+="- Tipo\n"
     errores++;
   }
 
   if (descripcion=="") {
-    alert("Descripcion inválida");
+    corregir+="- descripcion\n"
     errores++;
   }
 
   if (errores>0) {
-    alert("Errores: "+errores);
+    showError(corregir,"Errores: "+errores)
+    //alert(+"\n\n"+);
     return false;
   }
 
@@ -370,6 +416,55 @@ function validarCampos(sitio,categoria,tipo,descripcion,idNivel3){
   }
 
 }
+
+$('#save').click(function(){
+
+
+    var sitio=$('#edificio').val();
+
+    var categoria=$('#categoria').val();
+
+    var tipo =$('#tipo').val();
+
+    var descripcion=$('#descripcion').val();
+
+    var urgente = $('#roundedOne').is(':checked');
+
+    var idNivel3 = $('#nivel3').val();
+
+    var esValido=validarCampos(sitio,categoria,tipo,descripcion,idNivel3);
+
+    var idUsuario = window.localStorage.getItem("idUsuario");
+  
+    var token = localStorage.getItem("token");
+
+    var idNivel1 = getUrlVars()["idNivel1"];
+
+    var idNivel2 = getUrlVars()["idNivel2"];
+
+    var nombreFoto=obtenerNombreFoto();
+
+    var array = window.localStorage.getItem("push");
+
+    if (array==null) {
+      var local=[];
+    }
+
+    else{
+      var local= JSON.parse(array);
+    }
+
+    var datos = {"descripcion": descripcion, "urgente": urgente, "token":token, "idSitio":sitio,"idSubsitio": categoria,"idTipo":tipo,"idNivel1":idNivel1,"idNivel2":idNivel2,"idNivel3":idNivel3,"documentosCarga":idUsuario+'_'+nombreFoto}
+
+    local.push(JSON.stringify(datos));
+
+    localStorage.setItem("push",JSON.stringify(local));
+
+    alert("Foto guardada");
+
+
+
+});
 
 $('#accept').click(function() {
 
@@ -400,8 +495,9 @@ $('#accept').click(function() {
 	}
 
   if (esValido) {
-          
-      uploadPhoto(document.getElementById('smallImage').src);
+      
+      if(document.getElementById("smallImage").src!=null)
+        uploadPhoto(document.getElementById('smallImage').src);
 
       guardaTicket(sitio,categoria,tipo,descripcion,urgente,idNivel3);    
   }
@@ -481,6 +577,15 @@ document.addEventListener("deviceready", onDeviceReady, false);
           message,                
           alertDismissed,         
           'Aviso',            
+          'Ok'                  
+      );
+  }
+
+  function showError(message,titulo) {
+      navigator.notification.alert(
+          message,                
+          alertDismissed,         
+          titulo,            
           'Ok'                  
       );
     }

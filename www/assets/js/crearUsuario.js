@@ -16,7 +16,7 @@ function redirigir(ruta){
 function obtenerRegiones(){
 
 
-  var urlGetRegion ="http://sae1.imatronix.com:2614/WEBAPI_SERVICE/api/Region";
+  var urlGetRegion =window.localStorage.getItem("URL")+"/api/Region";
 
   $.ajax({
           url: urlGetRegion,
@@ -66,7 +66,7 @@ function obtenerCiudades(){
                         text : ".Seleccionar."
   }));
 
-  var urlGetCity ="http://sae1.imatronix.com:2614/WEBAPI_SERVICE/api/Ciudad/"+region;
+  var urlGetCity =window.localStorage.getItem("URL")+"/api/Ciudad/"+region;
 
   $.ajax({
           url: urlGetCity,
@@ -120,7 +120,7 @@ function obtenerComunas(){
 
   
 
-  var urlGetComuna ="http://sae1.imatronix.com:2614/WEBAPI_SERVICE/api/Comuna/"+ciudad;
+  var urlGetComuna =window.localStorage.getItem("URL")+"/api/Comuna/"+ciudad;
 
 
   $.ajax({
@@ -139,7 +139,7 @@ function obtenerComunas(){
               
 
                for (var n = 0; n < jsonObject.length; n++) {
-                    //selectObject.append(new Option(jsonObject[n].glosa, jsonObject[n].idRegion.value));
+                    
                     comuna.append($('<option>', { 
                         value: jsonObject[n].idComuna,
                         text : jsonObject[n].glosa
@@ -167,57 +167,62 @@ function validarCampos(){
   var num = /^([0-9])*$/;
 
   var errores=0;
+  var corregir="Debe corregir: \n\n"
 
 
   
   if (!filter6.test(document.getElementById("userName").value)){
-    alert("Nombre de usuario inválido");
+    //alert("Nombre de usuario inválido");
+    corregir+="- Nombre de usuario\n";
     errores++;
   }
   
   if (!filter6.test(document.getElementById("userLastName").value)){
-    alert("Apellido inválido");
+    //alert("Apellido inválido");
+    corregir+="- Apellido\n";
     errores++;
   }
   
 
   if (!expr.test(document.getElementById("email").value)){
-    alert("Correo inválido");
+    //alert("Correo inválido");
+    corregir+="- Correo\n";
     errores++;
   }
 
-  if(document.getElementById("pass").value.length<4){
-    alert("La contraseña debe ser mayor a 4 caracteres");
+  if(document.getElementById("pass").value.length<4 ||(document.getElementById("pass").value != document.getElementById("passConfirm").value)){
+    //alert("La contraseña debe ser mayor a 4 caracteres");
+    corregir+="- Contraseña\n";
     errores++;
   }
 
-  if(document.getElementById("pass").value != document.getElementById("passConfirm").value){
-    alert("Las contraseñas no coinciden");
-    errores++;
-  }
+  
 
   if(!num.test(document.getElementById("mobileFono").value)){
-    alert("Número de celular inválido");
+    //lert("Número de celular inválido");
+    corregir+="- Número de celular\n";
     errores++;
   }
 
   if($("#region").val()==0){
-    alert("Region inválida");
+    corregir+="- Región\n";
     errores++;
   }
 
   if($("#city").val()==0){
-    alert("Ciudad inválida");
+    corregir+="- Ciudad\n";
     errores++;
   }
 
   if($("#comuna").val()==0){
-    alert("Comuna inválida");
+    corregir+="- Comuna\n";
     errores++;
   }
 
   if(errores>0){
-    alert("Errores: "+errores);
+    //alert("Errores: "+errores);
+
+    showError(corregir,"Errores: "+errores);
     return false;  
   }  
 
@@ -231,7 +236,7 @@ function validarCampos(){
 
 function crearUsuario(nombres, apellidos, mail, contrasena, telefono, celular, direccion, idPais,idRegion, idCiudad, idComuna){
 
-  var urlCreate ="http://sae1.imatronix.com:2614/WEBAPI_SERVICE/api/Usuario";
+  var urlCreate =window.localStorage.getItem("URL")+"/api/Usuario";
   var dataUsuario = { "nombres": nombres, 
                     "apellidos": apellidos, 
                     "password": contrasena,
@@ -247,7 +252,7 @@ function crearUsuario(nombres, apellidos, mail, contrasena, telefono, celular, d
   $.ajax({
            
             
-            url: "http://sae1.imatronix.com:2614/WEBAPI_SERVICE/api/Usuario",
+            url: urlCreate,
             type: "POST",
             contentType:"application/json; charset=utf-8",
             data: JSON.stringify(dataUsuario),
@@ -298,6 +303,14 @@ $('#sendToCreate').click(function() {
 
         
         //location.href="login.html"
+
+});
+
+    
+$('#cancel').click(function() { 
+
+  parent.history.back();
+
 
 });
 
@@ -373,6 +386,15 @@ document.addEventListener("deviceready", onDeviceReady, false);
             'Aviso',            // title
             'Ok'                  // buttonName
         );
+    }
+
+    function showError(message,titulo) {
+      navigator.notification.alert(
+          message,                
+          alertDismissed,         
+          titulo,            
+          'Ok'                  
+      );
     }
 
 

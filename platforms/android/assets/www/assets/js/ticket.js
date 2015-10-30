@@ -1,3 +1,4 @@
+var fotos=[];
 
 function onDeviceReady() {
 
@@ -73,12 +74,23 @@ $('#TakePicture').click(function() {
 
 function sendData(imageData){
 
+  fotos.push(imageData);
+
+  var htmlDinamico="";
 	//alert("Foto tomada exitosamente");
+  for(var i=0;i<fotos.length;i++){
 
-	var image = document.getElementById('smallImage');
-  image.src = imageData;
-  image.style.display="";
+    htmlDinamico+="<img style='width:90%;height:250px;margin-left: 10px;'src='"+fotos[i]+"'/>";
 
+    //<img style="display:none;width:90%;height:250px;margin-left: 10px;" id="smallImage" src="" />
+
+    alert(htmlDinamico);
+
+
+
+  }
+
+  $("#imagenes").html(htmlDinamico);
 
 }
 
@@ -501,10 +513,6 @@ $('#accept').click(function() {
 
       guardaTicket(sitio,categoria,tipo,descripcion,urgente,idNivel3);    
   }
-
-
-	//enviarTicket(edificio,criticidad,categoria,descripcion,urgente,foto);
-
 
 
 

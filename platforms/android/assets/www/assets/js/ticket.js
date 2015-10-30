@@ -80,7 +80,7 @@ function sendData(imageData){
 	//alert("Foto tomada exitosamente");
   for(var i=0;i<fotos.length;i++){
 
-    htmlDinamico+="<img style='width:90%;height:250px;margin-left: 10px;'src='"+fotos[i]+"'/>";
+    htmlDinamico+="<img style='width:90%;height:250px;margin-left: 10px;'src='"+fotos[i]+"'/> <br>";
 
     //<img style="display:none;width:90%;height:250px;margin-left: 10px;" id="smallImage" src="" />
 
@@ -495,22 +495,11 @@ $('#accept').click(function() {
 
   var esValido=validarCampos(sitio,categoria,tipo,descripcion,idNivel3);
 
-	if(document.getElementById("smallImage").style.display!="none"){
-		
-		var foto = document.getElementById("smallImage").innerHTMl;
-			
-	}
-
-	else{
-		document.getElementById("smallImage").src=null;
-		
-	}
 
   if (esValido) {
       
-      if(document.getElementById("smallImage").src!=null)
-        uploadPhoto(document.getElementById('smallImage').src);
-
+      
+      //uploadPhoto(document.getElementById('smallImage').src);
       guardaTicket(sitio,categoria,tipo,descripcion,urgente,idNivel3);    
   }
 

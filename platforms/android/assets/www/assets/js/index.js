@@ -229,7 +229,6 @@ function crearCuenta(){
 
 $("#level1").change(function(){
   var valor = $("#level1").val();
-  alert(valor);
   mostrarNivel2(valor);    
 });
 

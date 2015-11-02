@@ -107,39 +107,52 @@ function concatenarNombres(){
   return acumulador;
 }
 
+function showLevel3(json){
+
+  var jsonObject = eval(json);
+
+ for (var n = 0; n < jsonObject.length; n++) {
+
+     $('#nivel3').append($('<option>', { 
+          value: jsonObject[n].idNivel3,
+          text : jsonObject[n].glosa
+      }));
+ }
+
+}
+
 function obtenerNivel3(){
 
 	var urlGetLevel3 =window.localStorage.getItem("URL")+"/api/Nivel3/"+ getUrlVars()["idNivel2"];
 
-  $.ajax({
-          url: urlGetLevel3,
-          type: "GET",
-          dataType: "json",
-          success: function(json) {
+  var nivel3 = window.localStorage.getItem("Nivel3");
 
+  if(nivel3==null){
 
-            if (json != "") {
+    $.ajax({
+            url: urlGetLevel3,
+            type: "GET",
+            dataType: "json",
+            success: function(json) {
 
-               var jsonObject = eval(json);
+                window.localStorage.setItem("Nivel3",JSON.stringify(json));
 
-               for (var n = 0; n < jsonObject.length; n++) {
-       
-                   $('#nivel3').append($('<option>', { 
-                        value: jsonObject[n].idNivel3,
-                        text : jsonObject[n].glosa
-                    }));
-               };
+                showLevel3(json);
+
+                 
+                             
+        
+              
+            },
+            error:function (xhr, ajaxOptions, thrownError) {
+               alert(JSON.stringify(thrownError));
             }
+      });
+  }
 
-               
-      
-            
-          },
-          error:function (xhr, ajaxOptions, thrownError) {
-             alert(JSON.stringify(thrownError));
-          }
-    });
-
+  else{
+    showLevel3(JSON.parse(nivel3));
+  }
 }
 
 
@@ -250,43 +263,73 @@ function onFail(message) {
 }
 
 
+function mostrarSitios(json){
+
+     var jsonObject = eval(json);
+
+      
+
+     for (var n = 0; n < jsonObject.length; n++) {
+        
+          $('#edificio').append($('<option>', { 
+              value: jsonObject[n].idSitio,
+              text : jsonObject[n].nombre
+          }));
+     };
+
+}
+
+
 function obtenerSitios(){
 
 	var urlGetSitio =window.localStorage.getItem("URL")+"/api/Sitio";
 
-  $.ajax({
-          url: urlGetSitio,
-          type: "POST",
-          dataType: "json",
-          success: function(json) {
+  var sitios = window.localStorage.getItem("sitios");
+
+  if(sitios==null){
+
+      $.ajax({
+              url: urlGetSitio,
+              type: "POST",
+              dataType: "json",
+              success: function(json) {
 
 
-            if (json != "") {
+                  window.localStorage.setItem("sitios",JSON.stringify(json));
 
-               var selectObject = $('#edificio');
+                   mostrarSitios(json);
+
+                   
+          
+                
+              },
+              error:function (xhr, ajaxOptions, thrownError) {
+                 alert(JSON.stringify(thrownError));
+                 
+              }
+        });
+    }
+
+    else{
+      mostrarSitios(JSON.parse(sitios));
+    }
+}
+
+function mostrarTipos(json){
+
+  var selectObject = $('#tipo');
 
                var jsonObject = eval(json);
 
                 
 
                for (var n = 0; n < jsonObject.length; n++) {
-                  
-                    $('#edificio').append($('<option>', { 
-                        value: jsonObject[n].idSitio,
-                        text : jsonObject[n].nombre
+                    $('#tipo').append($('<option>', { 
+                        value: jsonObject[n].idTipo,
+                        text : jsonObject[n].glosa
                     }));
-               };
-            }
-
-               
-      
+               }
             
-          },
-          error:function (xhr, ajaxOptions, thrownError) {
-             alert(JSON.stringify(thrownError));
-             
-          }
-    });
 
 }
 
@@ -294,40 +337,53 @@ function obtenerTipos(){
 
   var urlGetTipo =window.localStorage.getItem("URL")+"/api/SubsitioTipo";
 
-  $.ajax({
-          url: urlGetTipo,
-          type: "POST",
-          dataType: "json",
-          success: function(json) {
+  var tipos = window.localStorage.getItem("Tipos");
 
+  if(tipos==null){
 
-            if (json != "") {
+        $.ajax({
+                url: urlGetTipo,
+                type: "POST",
+                dataType: "json",
+                success: function(json) {
 
-               var selectObject = $('#tipo');
+                  window.localStorage.setItem("Tipos",JSON.stringify(json));
 
-               var jsonObject = eval(json);
+                  mostrarTipos(json);
+                  
 
-                
+                     
 
-               for (var n = 0; n < jsonObject.length; n++) {
-                    //selectObject.append(new Option(jsonObject[n].glosa, jsonObject[n].idRegion.value));
-                    $('#tipo').append($('<option>', { 
-                        value: jsonObject[n].idTipo,
-                        text : jsonObject[n].glosa
-                    }));
-               };
-            }
-
-               
-      
+                     
             
-          },
-          error:function (xhr, ajaxOptions, thrownError) {
-             alert(JSON.stringify(thrownError));
-             alert(JSON.stringify(xhr));
-          }
-    });
+                  
+                },
+                error:function (xhr, ajaxOptions, thrownError) {
+                   alert(JSON.stringify(thrownError));
+                   alert(JSON.stringify(xhr));
+                }
+          });
 
+      }
+
+      else{
+        mostrarTipos(JSON.parse(tipos));
+      }
+}
+
+function mostrarSubsitios(json){
+
+       var jsonObject = eval(json);
+
+       
+
+       for (var n = 0; n < jsonObject.length; n++) {
+            
+            $('#categoria').append($('<option>', { 
+                value: jsonObject[n].idSubSitio,
+                text : jsonObject[n].glosa
+            }));
+       }
 
 }
 
@@ -335,44 +391,37 @@ function obtenerCategoria(idSitio, idTipo){
 
 	var urlGetCategoria =window.localStorage.getItem("URL")+"/api/Subsitio";
 
-
-  $.ajax({
-          url: urlGetCategoria,
-          type: "POST",
-          dataType: "json",
-          data: {"idSitio": idSitio, "idTipo": idTipo},
-          success: function(json) {
-          
-          
-
-            if (json != "") {
-
-               var selectObject = $('#categoria');
-
-               var jsonObject = eval(json);
-
-               
-
-               for (var n = 0; n < jsonObject.length; n++) {
-                    //selectObject.append(new Option(jsonObject[n].glosa, jsonObject[n].idRegion.value));
-                    $('#categoria').append($('<option>', { 
-                        value: jsonObject[n].idSubSitio,
-                        text : jsonObject[n].glosa
-                    }));
-               };
-            }
-
-               
-      		
-            
-          },
-          error:function (xhr, ajaxOptions, thrownError) {
-             alert(JSON.stringify(thrownError));
-             alert(JSON.stringify(xhr));
-          }
-    });
+  var SubSitios = window.localStorage.getItem("Subsitios"+idSitio+idTipo);
 
 
+  if(SubSitios==null){
+
+
+          $.ajax({
+                  url: urlGetCategoria,
+                  type: "POST",
+                  dataType: "json",
+                  data: {"idSitio": idSitio, "idTipo": idTipo},
+                  success: function(json) {
+                  
+                      window.localStorage.setItem("Subsitios"+idSitio+idTipo,JSON.stringify(json));
+
+                      mostrarSubsitios(json);
+
+                       
+              		
+                    
+                  },
+                  error:function (xhr, ajaxOptions, thrownError) {
+                     alert(JSON.stringify(thrownError));
+                     alert(JSON.stringify(xhr));
+                  }
+            });
+  }
+
+  else{
+    mostrarSubsitios(JSON.parse(SubSitios));
+  }
 }
 
 function getUrlVars(){

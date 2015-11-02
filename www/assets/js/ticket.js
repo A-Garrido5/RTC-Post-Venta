@@ -480,52 +480,25 @@ function validarCampos(sitio,categoria,tipo,descripcion,idNivel3){
 
 }
 
-$('#save').click(function(){
-
-
+function guardarTicketLocalStorage(){
+  
     var sitio=$('#edificio').val();
-
-    alert(sitio);
 
     var categoria=$('#categoria').val();
 
-    alert(categoria);
-
     var tipo =$('#tipo').val();
-
-    alert(tipo);
 
     var descripcion=$('#descripcion').val();
 
-    alert(descripcion);
-
     var urgente = $('#roundedOne').is(':checked');
 
-    alert(urgente);
-
     var idNivel3 = $('#nivel3').val();
-
-    alert(idNivel3);
-
-    //var esValido=validarCampos(sitio,categoria,tipo,descripcion,idNivel3);
-
-    var idUsuario = window.localStorage.getItem("idUsuario");
-
-    alert(idUsuario);
   
     var token = localStorage.getItem("token");
 
-    alert(token);
-
     var idNivel1 = getUrlVars()["idNivel1"];
 
-    alert(idNivel1);
-
     var idNivel2 = getUrlVars()["idNivel2"];
-
-    alert(idNivel2);
-
-    //var nombreFoto=obtenerNombreFoto();
 
     var array = window.localStorage.getItem("push");
 
@@ -537,7 +510,7 @@ $('#save').click(function(){
       var local= JSON.parse(array);
     }
 
-    var datos = {"descripcion": descripcion, "urgente": urgente, "token":token, "idSitio":sitio,"idSubsitio": categoria,"idTipo":tipo,"idNivel1":idNivel1,"idNivel2":idNivel2,"idNivel3":idNivel3,"documentosCarga":idUsuario+'_'};
+    var datos = {"descripcion": descripcion, "urgente": urgente, "token":token, "idSitio":sitio,"idSubsitio": categoria,"idTipo":tipo,"idNivel1":idNivel1,"idNivel2":idNivel2,"idNivel3":idNivel3,"documentosCarga":fotos};
 
     alert(JSON.stringify(datos));
 
@@ -547,9 +520,9 @@ $('#save').click(function(){
 
     alert("Ticket guardado");
 
+}
 
 
-});
 
 $('#accept').click(function() {
 
@@ -568,25 +541,29 @@ $('#accept').click(function() {
 
   var esValido=validarCampos(sitio,categoria,tipo,descripcion,idNivel3);
 
-
-
-
   if (esValido) {
-      
-      
-      
-      guardaTicket(sitio,categoria,tipo,descripcion,urgente,idNivel3);    
 
-      for(var i=0;i<fotos.length;i++){
-          uploadPhoto(fotos[i]);
+      var estaConectado=checkConnection();
+
+
+      if(estaConectado){
+                       
+            
+            guardaTicket(sitio,categoria,tipo,descripcion,urgente,idNivel3);    
+
+            for(var i=0;i<fotos.length;i++){
+                uploadPhoto(fotos[i]);
+            }
+      }
+
+      else{
+        showConfirm("El equipo no posee conexión a Internet.\n\n     ¿Desea guardar el ticket?");
       }
   }
 
 
 
 });
-
-
 
 
 
@@ -647,6 +624,10 @@ document.addEventListener("deviceready", onDeviceReady, false);
          
       }
 
+
+
+
+
   
   function showAlert(message) {
       navigator.notification.alert(
@@ -665,3 +646,24 @@ document.addEventListener("deviceready", onDeviceReady, false);
           'Ok'                  
       );
     }
+
+  function onConfirm(buttonIndex) {
+        
+        if(buttonIndex==2){
+
+          guardarTicketLocalStorage();
+
+        }
+    }
+
+    // Show a custom confirmation dialog
+    //
+    function showConfirm(message) {
+        navigator.notification.confirm(
+            message, // message
+             onConfirm,            // callback to invoke with index of button pressed
+            'Confirmar',           // title
+            ['Cancelar','Ok']         // buttonLabels
+        );
+    }
+

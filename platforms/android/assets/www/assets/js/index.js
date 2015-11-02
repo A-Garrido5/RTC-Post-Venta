@@ -1,9 +1,9 @@
 
 $(document).ready(function () {
 
-      //location.href = "guardarLocalStorage.html";
+      //location.href = "ticketsGuardados.html";
       //localStorage.removeItem("push");
-   // alert(JSON.parse(window.localStorage.getItem("push")));
+    
 
     localStorage.setItem("URL", "http://sae1.imatronix.com:2614/WEBAPI_SERVICE");
 

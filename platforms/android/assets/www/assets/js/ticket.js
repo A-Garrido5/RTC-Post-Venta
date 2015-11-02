@@ -15,17 +15,11 @@ function onDeviceReady() {
 $(document).ready(function (){
 
 
-
-
     obtenerSitios();
 
     obtenerTipos();
 
     obtenerNivel3();
-
-
-
-
 
 });
 

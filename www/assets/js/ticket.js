@@ -1,5 +1,7 @@
 var fotos=[];
 
+var nombresFotos=[];
+
 function onDeviceReady() {
 
 	pictureSource = navigator.camera.PictureSourceType;
@@ -76,22 +78,39 @@ function sendData(imageData){
 
   fotos.push(imageData);
 
+  nombresFotos.push(imageData.substr(imageData.lastIndexOf('/')+1));
+
   var htmlDinamico="";
 	//alert("Foto tomada exitosamente");
   for(var i=0;i<fotos.length;i++){
 
-    htmlDinamico+="<img style='width:90%;height:250px;margin-left: 10px;'src='"+fotos[i]+"'/> <br>";
+    htmlDinamico+="<img style='width:90%;height:250px;margin-left: 10px;'src='"+fotos[i]+"'/> <br><br><br>";
 
     //<img style="display:none;width:90%;height:250px;margin-left: 10px;" id="smallImage" src="" />
 
-    alert(htmlDinamico);
 
 
 
   }
 
+
   $("#imagenes").html(htmlDinamico);
 
+}
+
+function concatenarNombres(){
+
+  var idUsuario = window.localStorage.getItem("idUsuario");
+
+  var acumulador="";
+
+  for(var i = 0; i < nombresFotos.length;i++){
+    
+      acumulador+=idUsuario+'_'+nombresFotos[i]+'|';
+    
+  }
+
+  return acumulador;
 }
 
 function obtenerNivel3(){
@@ -129,20 +148,11 @@ function obtenerNivel3(){
 
 }
 
-function obtenerNombreFoto () {
-  
-
-    var nombreFoto = (document.getElementById('smallImage').src).substr((document.getElementById('smallImage').src).lastIndexOf('/')+1);
-
-    //showAlert(nombreFoto);
-
-    return nombreFoto;
-}
 
 function guardaTicket(sitio,categoria,tipo,descripcion,urgente,idNivel3){
 
   
-  var idUsuario = window.localStorage.getItem("idUsuario");
+
 	
 	var token = localStorage.getItem("token");
 
@@ -150,15 +160,16 @@ function guardaTicket(sitio,categoria,tipo,descripcion,urgente,idNivel3){
 
 	var idNivel2 = getUrlVars()["idNivel2"];
 
-  var nombreFoto=obtenerNombreFoto();
+  var photoNames = concatenarNombres();
+
 	
-  var datos = {"descripcion": descripcion, "urgente": urgente, "token": token, "idSitio":sitio  ,"idSubsitio": categoria,"idTipo":tipo,"idNivel1":idNivel1,"idNivel2":idNivel2,"idNivel3":idNivel3,"documentosCarga":idUsuario+'_'+nombreFoto}
+  var datos = {"descripcion": descripcion, "urgente": urgente, "token": token, "idSitio":sitio  ,"idSubsitio": categoria,"idTipo":tipo,"idNivel1":idNivel1,"idNivel2":idNivel2,"idNivel3":idNivel3,"documentosCarga": photoNames};
 
-  var estaConectado=checkConnection();
 
-  //alert(estaConectado);
+  alert(JSON.stringify(datos));
 
-  if(estaConectado){
+
+
 
         	$.ajax({
                   url: window.localStorage.getItem("URL")+"/api/Ticket",
@@ -178,10 +189,7 @@ function guardaTicket(sitio,categoria,tipo,descripcion,urgente,idNivel3){
           });
     }
 
-    else{
-      showAlert("No esta conectado");
-    }
-}
+
 
 
 
@@ -434,27 +442,47 @@ $('#save').click(function(){
 
     var sitio=$('#edificio').val();
 
+    alert(sitio);
+
     var categoria=$('#categoria').val();
+
+    alert(categoria);
 
     var tipo =$('#tipo').val();
 
+    alert(tipo);
+
     var descripcion=$('#descripcion').val();
+
+    alert(descripcion);
 
     var urgente = $('#roundedOne').is(':checked');
 
+    alert(urgente);
+
     var idNivel3 = $('#nivel3').val();
 
-    var esValido=validarCampos(sitio,categoria,tipo,descripcion,idNivel3);
+    alert(idNivel3);
+
+    //var esValido=validarCampos(sitio,categoria,tipo,descripcion,idNivel3);
 
     var idUsuario = window.localStorage.getItem("idUsuario");
+
+    alert(idUsuario);
   
     var token = localStorage.getItem("token");
 
+    alert(token);
+
     var idNivel1 = getUrlVars()["idNivel1"];
+
+    alert(idNivel1);
 
     var idNivel2 = getUrlVars()["idNivel2"];
 
-    var nombreFoto=obtenerNombreFoto();
+    alert(idNivel2);
+
+    //var nombreFoto=obtenerNombreFoto();
 
     var array = window.localStorage.getItem("push");
 
@@ -466,13 +494,15 @@ $('#save').click(function(){
       var local= JSON.parse(array);
     }
 
-    var datos = {"descripcion": descripcion, "urgente": urgente, "token":token, "idSitio":sitio,"idSubsitio": categoria,"idTipo":tipo,"idNivel1":idNivel1,"idNivel2":idNivel2,"idNivel3":idNivel3,"documentosCarga":idUsuario+'_'+nombreFoto}
+    var datos = {"descripcion": descripcion, "urgente": urgente, "token":token, "idSitio":sitio,"idSubsitio": categoria,"idTipo":tipo,"idNivel1":idNivel1,"idNivel2":idNivel2,"idNivel3":idNivel3,"documentosCarga":idUsuario+'_'};
+
+    alert(JSON.stringify(datos));
 
     local.push(JSON.stringify(datos));
 
     localStorage.setItem("push",JSON.stringify(local));
 
-    alert("Foto guardada");
+    alert("Ticket guardado");
 
 
 
@@ -496,11 +526,17 @@ $('#accept').click(function() {
   var esValido=validarCampos(sitio,categoria,tipo,descripcion,idNivel3);
 
 
+
+
   if (esValido) {
       
       
-      //uploadPhoto(document.getElementById('smallImage').src);
+      
       guardaTicket(sitio,categoria,tipo,descripcion,urgente,idNivel3);    
+
+      for(var i=0;i<fotos.length;i++){
+          uploadPhoto(fotos[i]);
+      }
   }
 
 

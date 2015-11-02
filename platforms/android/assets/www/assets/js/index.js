@@ -47,33 +47,53 @@ function logout(){
 
 function mostrarMenu(){
 
+  var menuNivel1=window.localStorage.getItem("nivel1");
 
 
-  var urlGetLevel =window.localStorage.getItem("URL")+"/api/Nivel1";
-  $.ajax({
-          url: urlGetLevel,
-          type: "GET",
-          dataType: "json",
-          success: function(json) {
-            if (json != "") {
+  if(menuNivel1==null){
 
-               var selectObject = $('#level1');
-               var jsonObject = eval(json);
-               for (var n = 0; n < jsonObject.length; n++) {
-                    $('#level1').append($('<option>', { 
-                        value: jsonObject[n].idNivel1,
-                        text : jsonObject[n].glosa
-                    }));
-               };
+    var urlGetLevel =window.localStorage.getItem("URL")+"/api/Nivel1";
+    $.ajax({
+            url: urlGetLevel,
+            type: "GET",
+            dataType: "json",
+            success: function(json) {
+              if (json != "") {
+
+                window.localStorage.setItem("nivel1",JSON.stringify(json));
+
+                var selectObject = $('#level1');
+                var jsonObject = eval(json);
+                for (var n = 0; n < jsonObject.length; n++) {
+                      $('#level1').append($('<option>', { 
+                          value: jsonObject[n].idNivel1,
+                          text : jsonObject[n].glosa
+                      }));
+                 }
+              }
+              
+            },
+            error:function (xhr, ajaxOptions, thrownError) {
+               alert(JSON.stringify(thrownError));
+          
             }
-            
-          },
-          error:function (xhr, ajaxOptions, thrownError) {
-             alert(JSON.stringify(thrownError));
-        
-          }
     });
+  }
 
+  else{
+
+    var jsonObject = JSON.parse(menuNivel1);
+
+    var selectObject = $('#level1');
+    
+    for (var n = 0; n < jsonObject.length; n++) {
+          $('#level1').append($('<option>', { 
+              value: jsonObject[n].idNivel1,
+              text : jsonObject[n].glosa
+          }));
+     }
+
+  }
 
 }
 
@@ -98,6 +118,8 @@ function mostrarNivel2(idNivel1){
       type: "GET",
       dataType: "json",
       success: function (json) {
+
+          window.localStorage.setItem("nivel2",JSON.stringify(json));
 
           var jsonObject = eval(json);
 

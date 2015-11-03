@@ -43,7 +43,7 @@ var htmlDinamico="";
 	         		
 	         		var j = i+1;
 
-	         		htmlDinamico+="<table data-role='table' id='table-custom-2' class='ui-body-d'>";
+	         		htmlDinamico+="<table data-role='table' id='table-custom-2' class='ui-responsive'>";
 	         		htmlDinamico+="		<thead>";
 	         		htmlDinamico+="			<tr class='ui-bar-d'>";
 	         		htmlDinamico+="				<th>Solicitud "+j+"</th>";
@@ -53,6 +53,7 @@ var htmlDinamico="";
 	         		htmlDinamico+="			<tr class='ui-bar-d'>";
 	           		htmlDinamico+="				<td><strong style='font-size: 20px;'>Sitio:</strong></td>"
 	         		htmlDinamico+="				<td><strong style='font-size: 20px;'>"+json[i].nombreSitio;+"</strong></td>"
+	         		htmlDinamico+="			</tr>";
 	         		htmlDinamico+="			<tr class='ui-bar-d'>";
 	         		htmlDinamico+="				<td><strong style='font-size: 20px;'>Tipo:</strong></td>"
 	         		htmlDinamico+="				<td><strong style='font-size: 20px;'>"+json[i].nombreTipo;+"</strong></td>"

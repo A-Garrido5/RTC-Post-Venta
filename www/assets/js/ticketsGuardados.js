@@ -1,3 +1,7 @@
+var tickets = [];
+
+var terminoMandarTicket=false;
+var terminoMandarFoto=false;
 
 $(document).ready(function (){
 
@@ -11,6 +15,10 @@ function mostrarTicketsGuardados(){
 
 	var arreglo = JSON.parse(window.localStorage.getItem("push"));
 
+	if(arreglo==null){
+		alert("No hay datos guardados");
+	}
+
 	var htmlDinamico="";
 
 
@@ -23,6 +31,8 @@ function mostrarTicketsGuardados(){
 		var array= JSON.parse(arreglo[i]);
 
 		var urgencia;
+
+		var numeroFotos = array.documentosCarga.length;
 		
 		if(array.urgente){
 			urgencia="Si";
@@ -46,7 +56,7 @@ function mostrarTicketsGuardados(){
  		htmlDinamico+="			</tr>";
  		htmlDinamico+="			<tr class='ui-bar-a'>";
    		htmlDinamico+="				<td><strong style='font-size: 20px;'>ID Sub-sitio:</strong></td>"
- 		htmlDinamico+="				<td><strong style='font-size: 20px;'>"+array.idSitio+"</strong></td>"
+ 		htmlDinamico+="				<td><strong style='font-size: 20px;'>"+array.idSubsitio+"</strong></td>"
  		htmlDinamico+="			</tr>";
  		htmlDinamico+="			<tr class='ui-bar-a'>";
    		htmlDinamico+="				<td><strong style='font-size: 20px;'>ID Tipo:</strong></td>"
@@ -76,27 +86,30 @@ function mostrarTicketsGuardados(){
    		htmlDinamico+="				<td><strong style='font-size: 20px;'>Descripción:  </strong></td>"
  		htmlDinamico+="				<td><strong style='font-size: 20px;'>"+array.descripcion+"</strong></td>"
  		htmlDinamico+="			</tr>";
+
+ 		if(numeroFotos>0){
+ 			for(var x =0;x<numeroFotos;x++){
+
+ 				var y = x+1;
+
+ 				htmlDinamico+="			<tr class='ui-bar-a'>";
+		   		htmlDinamico+="				<td><strong style='font-size: 20px;'>Foto "+y+":  </strong></td>"
+		 		htmlDinamico+="				<td><img style='width:auto;height:auto;'src='"+array.documentosCarga[x]+"'/></td>"
+		 		htmlDinamico+="			</tr>";
+
+ 			}
+ 		}
+ 		
+
+
  		htmlDinamico+="		</tbody>";
 		htmlDinamico+="</table>";
 		htmlDinamico+="<br>";
 		htmlDinamico+="<br>";
 		htmlDinamico+="<br>";
 		htmlDinamico+="<br>";
-
-		
-
-		/*
-
-		alert("Descripcion : "+array.descripcion);
-		alert("Urgente : "+array.urgente);
-		alert("Token : "+array.token);
-		alert("ID del sitio : "+array.idSitio);
-		alert("ID del Subsitio : "+array.idSubsitio);
-		alert("ID del tipo : "+array.tipo);
-	*/
 		
 	}
-
 
 
 	$("#TicketsGuardados").html(htmlDinamico);
@@ -104,4 +117,196 @@ function mostrarTicketsGuardados(){
 
 }
 
-//{"descripcion": descripcion,"documentosCarga":fotos};
+function enviarTextoTicket(datos,esUltimo,numeroTickets){
+
+
+	
+	
+	
+	
+	$.ajax({
+                  url: window.localStorage.getItem("URL")+"/api/Ticket",
+                  type: "POST",
+                  async: false,
+                  data: datos,
+                  
+                 
+                  success: function (result) {
+                  		tickets.push(result);
+                  		
+                  		if (esUltimo) {
+							
+							showAlert("Se han creado los siguientes tickets "+tickets);
+							tickets=[];
+							terminoMandarTicket=true;
+						}
+                      //showAlert("Se ha creado un ticket número: " + result);
+                      
+                  },
+                 
+                  error: function (xhr,status,p3,p4) {
+                               
+                      alert("error:");
+                  }
+          });
+}
+
+
+function uploadPhoto(imageURI, esUltimaFoto) {
+
+	var idUsuario = window.localStorage.getItem("idUsuario");
+
+	var nombreArchivo = imageURI.substr(imageURI.lastIndexOf('/')+1);
+
+	var options = new FileUploadOptions();
+	options.fileKey="file";
+	options.fileName= idUsuario+"_"+nombreArchivo;
+	options.mimeType="image/jpeg";
+
+	var params = new Object();
+
+	options.params = params;
+
+	var ft = new FileTransfer();
+
+	
+	ft.upload(imageURI, encodeURI(window.localStorage.getItem("URL")+"/api/Documento"), win, fail, options);
+
+	if (esUltimaFoto) {
+		terminoMandarFoto=true;
+	}
+	
+
+
+
+    
+}
+
+
+function win(r) {
+	
+}
+
+function fail(error) {
+    alert("An error has occurred: Code = " + error.code);
+    
+}
+
+
+function enviarTicketsGuardados(){
+
+	var nombreFoto="";
+
+	var esUltimo=false;
+
+	var esUltimaFoto=false;
+
+	var arreglo = JSON.parse(window.localStorage.getItem("push"));
+
+	for(var i=0;i<arreglo.length;i++){
+
+		
+		array = JSON.parse(arreglo[i]);
+
+		for(var j=0;j<array.documentosCarga.length;j++){
+
+			nombreFoto+=array.documentosCarga[j].substr(array.documentosCarga[j].lastIndexOf('/')+1)+"|";
+		}
+
+
+		var datos = {
+			"descripcion": array.descripcion, 
+			"urgente": array.urgente, 
+			"token": array.token,
+			"idSitio":array.idSitio,
+			"idSubsitio": array.idSubsitio,
+			"idTipo":array.idTipo,
+			"idNivel1":array.idNivel1,
+			"idNivel2":array.idNivel2,
+			"idNivel3":array.idNivel3,
+			"documentosCarga": nombreFoto};
+
+		if(i==arreglo.length-1){
+			esUltimo=true;
+		}
+
+		enviarTextoTicket(datos,esUltimo,i+1)
+
+		for(var k=0;k<array.documentosCarga.length;k++){
+
+
+			if(k==array.documentosCarga.length-1){
+				esUltimaFoto=true;
+			}
+
+			uploadPhoto(array.documentosCarga[k],esUltimaFoto);
+
+		}
+
+
+
+		
+	}
+
+		alert(terminoMandarTicket);
+		alert(terminoMandarFoto);
+
+	
+		if(terminoMandarTicket && terminoMandarFoto)
+			window.localStorage.removeItem("push");
+			nombreFoto="";
+
+}
+
+$('#accept').click(function() { 
+
+	enviarTicketsGuardados();
+
+
+});
+
+$('#cancel').click(function() { 
+
+	parent.history.back();
+
+
+});
+
+
+document.addEventListener("deviceready", onDeviceReady, false);
+
+  
+  
+  function onDeviceReady() {
+      
+  }
+
+  
+      function alertDismissed() {
+         
+      }
+
+
+
+
+
+  
+  function showAlert(message) {
+      navigator.notification.alert(
+          message,                
+          alertDismissed,         
+          'Aviso',            
+          'Ok'                  
+      );
+  }
+
+  function showError(message,titulo) {
+      navigator.notification.alert(
+          message,                
+          alertDismissed,         
+          titulo,            
+          'Ok'                  
+      );
+    }
+
+  

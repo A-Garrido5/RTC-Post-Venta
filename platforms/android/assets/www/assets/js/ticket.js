@@ -173,16 +173,12 @@ function guardaTicket(sitio,categoria,tipo,descripcion,urgente,idNivel3){
   var datos = {"descripcion": descripcion, "urgente": urgente, "token": token, "idSitio":sitio  ,"idSubsitio": categoria,"idTipo":tipo,"idNivel1":idNivel1,"idNivel2":idNivel2,"idNivel3":idNivel3,"documentosCarga": photoNames};
 
 
-  alert(JSON.stringify(datos));
-
-
-
 
         	$.ajax({
                   url: window.localStorage.getItem("URL")+"/api/Ticket",
                   type: "POST",
                   data: datos,
-                  
+                  async: false,                  
                  
                   success: function (result) {
                       showAlert("Se ha creado un ticket número: " + result);
@@ -610,7 +606,6 @@ $("#tipo").change(function(){
 	
         
 });
-
 document.addEventListener("deviceready", onDeviceReady, false);
 
   
@@ -666,4 +661,5 @@ document.addEventListener("deviceready", onDeviceReady, false);
             ['Cancelar','Ok']         // buttonLabels
         );
     }
+
 

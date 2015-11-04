@@ -130,3 +130,11 @@ function obtenerSolicitudes(){
 		mostrarSolicitudes(JSON.parse(request));
 	}
 }
+
+    
+$('#cancel').click(function() { 
+
+	parent.history.back();
+
+
+});

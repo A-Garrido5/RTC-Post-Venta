@@ -14,12 +14,20 @@ function onDeviceReady() {
 
 $(document).ready(function (){
 
+    obtenerNivel3();
 
     obtenerSitios();
 
-    obtenerTipos();
 
-    obtenerNivel3();
+
+    document.getElementById("edificio").selectedIndex = "1";
+
+    obtenerCategoria($('#edificio').val(),2);
+    document.getElementById("categoria").selectedIndex = "1";
+
+
+
+    
 
 });
 
@@ -44,7 +52,6 @@ function checkConnection() {
         return true;
       }
 
-      alert('Connection type: ' + states[networkState]);
 }
 
 
@@ -75,7 +82,7 @@ function sendData(imageData){
   nombresFotos.push(imageData.substr(imageData.lastIndexOf('/')+1));
 
   var htmlDinamico="";
-	//alert("Foto tomada exitosamente");
+	
   for(var i=0;i<fotos.length;i++){
 
     htmlDinamico+="<img style='width:90%;height:250px;margin-left: 10px;'src='"+fotos[i]+"'/> <br><br><br>";
@@ -254,7 +261,7 @@ function capturePhoto() {
 
 function onFail(message) {
 
-	alert('Fallo ocurrido:  ' + message);
+	//alert('Fallo ocurrido:  ' + message);
 
 }
 
@@ -387,20 +394,21 @@ function obtenerCategoria(idSitio, idTipo){
 
 	var urlGetCategoria =window.localStorage.getItem("URL")+"/api/Subsitio";
 
-  var SubSitios = window.localStorage.getItem("Subsitios"+idSitio+idTipo);
+
+  var Subsitios = window.localStorage.getItem("Subsitios"+idSitio);
 
 
-  if(SubSitios==null){
-
+  if(Subsitios==null){
 
           $.ajax({
                   url: urlGetCategoria,
                   type: "POST",
                   dataType: "json",
+                  async: false,
                   data: {"idSitio": idSitio, "idTipo": idTipo},
                   success: function(json) {
                   
-                      window.localStorage.setItem("Subsitios"+idSitio+idTipo,JSON.stringify(json));
+                      window.localStorage.setItem("Subsitios"+idSitio,JSON.stringify(json));
 
                       mostrarSubsitios(json);
 
@@ -416,8 +424,10 @@ function obtenerCategoria(idSitio, idTipo){
   }
 
   else{
-    mostrarSubsitios(JSON.parse(SubSitios));
+    mostrarSubsitios(JSON.parse(Subsitios));
   }
+
+  
 }
 
 function getUrlVars(){
@@ -508,13 +518,15 @@ function guardarTicketLocalStorage(){
 
     var datos = {"descripcion": descripcion, "urgente": urgente, "token":token, "idSitio":sitio,"idSubsitio": categoria,"idTipo":tipo,"idNivel1":idNivel1,"idNivel2":idNivel2,"idNivel3":idNivel3,"documentosCarga":fotos};
 
-    alert(JSON.stringify(datos));
+    //alert(JSON.stringify(datos));
 
     local.push(JSON.stringify(datos));
 
     localStorage.setItem("push",JSON.stringify(local));
 
-    alert("Ticket guardado");
+    showAlert("Ticket guardado");
+
+    location.href="index.html";
 
 }
 
@@ -576,36 +588,18 @@ $("#edificio").change(function(){
 
 
 	var selectEdificio = document.getElementById("edificio").selectedIndex;
-	var selectTipo = document.getElementById("tipo").selectedIndex;
 
-	if(selectEdificio!= 0 && selectTipo != 0){
-		obtenerCategoria($('#edificio').val(),$('#tipo').val());
-	}
+	
+	obtenerCategoria($('#edificio').val(),2);
+
+  document.getElementById("categoria").selectedIndex = "1";
+	
 	
 
         
 });
 
 
-$("#tipo").change(function(){
-
-	
-	var categoria = $('#categoria').empty();
-
-	categoria.append($('<option>', { 
-	                        value: 0,
-	                        text : ".Seleccionar."
-	}));
-
-	var selectEdificio = document.getElementById("edificio").selectedIndex;
-	var selectTipo = document.getElementById("tipo").selectedIndex;
-
-	if(selectEdificio!= 0 && selectTipo != 0){
-		obtenerCategoria($('#edificio').val(),$('#tipo').val());
-	}
-	
-        
-});
 document.addEventListener("deviceready", onDeviceReady, false);
 
   

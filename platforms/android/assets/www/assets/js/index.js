@@ -1,11 +1,11 @@
 
 $(document).ready(function () {
 
-      //location.href = "ticketsGuardados.html";
-      //localStorage.removeItem("push");
-    
+
 
     localStorage.setItem("URL", "http://sae1.imatronix.com:2614/WEBAPI_SERVICE");
+
+
 
     var value = window.localStorage.getItem("token");
     var username = window.localStorage.getItem("username");
@@ -23,7 +23,7 @@ $(document).ready(function () {
         $('#nameRight').text(username);
     }
 
-
+    mostrarNivel2();  
 
 
 });
@@ -98,7 +98,7 @@ function mostrarMenu(){
 
 }
 
-function showLevel2(json,idNivel1){
+function showLevel2(json){
 
   var divApertura = "<div class='row text-center'>";
   var divCierre ="</div>";
@@ -119,16 +119,16 @@ function showLevel2(json,idNivel1){
 
                   htmlDinamico += divApertura + "  \n ";
                   htmlDinamico += "  <div class='col-50'>   \n";
-                  htmlDinamico += "      <a href='#' onclick='redirigirTicket(" + idNivel1 + "," + json[n - 2].idNivel2 + ");return false;' class='menu-link'>  \n";
+                  htmlDinamico += "      <a href='#' onclick='redirigirTicket(" + json[n - 2].idNivel1 + "," + json[n - 2].idNivel2 + ");return false;' class='menu-link'>  \n";
                   htmlDinamico += "         <span class='" + json[n - 2].imagen + "'></span>      \n";
-                  htmlDinamico += "         <span>" + json[n - 2].glosa + "</span>    \n";
+                  htmlDinamico += "         <span>" + json[n - 2].glosa +" / "+json[n-2].glosa2 +"</span>    \n";
                   htmlDinamico += "      </a>   \n";
                   htmlDinamico += "  </div>   \n";
 
                   htmlDinamico += "  <div class='col-50'>    \n";
-                  htmlDinamico += "      <a href='about.html' class='menu-link' onclick='redirigirTicket(" + idNivel1 + "," + json[n - 1].idNivel2 + ");return false;'>    \n";
+                  htmlDinamico += "      <a href='about.html' class='menu-link' onclick='redirigirTicket(" + json[n - 1].idNivel1 + "," + json[n - 1].idNivel2 + ");return false;'>    \n";
                   htmlDinamico += "         <span class='" + json[n - 1].imagen + "'></span>    \n";
-                  htmlDinamico += "         <span>" + json[n - 1].glosa + "</span>    \n";
+                  htmlDinamico += "         <span>" + json[n - 1].glosa +" / "+json[n-1].glosa2 +"</span>    \n";
                   htmlDinamico += "      </a>   \n";
                   htmlDinamico += "  </div>   \n";
 
@@ -141,9 +141,9 @@ function showLevel2(json,idNivel1){
               if (n == tope) {
                 htmlDinamico += divApertura + "  \n ";
                   htmlDinamico += "  <div class='col-50'>    \n";
-                  htmlDinamico += "      <a href='about.html' class='menu-link' onclick='redirigirTicket(" + idNivel1 + "," + json[n - 1].idNivel2 + ");return false;'>    \n";
+                  htmlDinamico += "      <a href='about.html' class='menu-link' onclick='redirigirTicket(" + json[n - 1].idNivel1 + "," + json[n - 1].idNivel2 + ");return false;'>    \n";
                   htmlDinamico += "         <span class='" + json[n - 1].imagen + "'></span>     \n";
-                  htmlDinamico += "         <span>" + json[n-1].glosa + "</span>      \n";
+                  htmlDinamico += "         <span>" + json[n-1].glosa+" / "+json[n-1].glosa2 + "</span>      \n";
                   htmlDinamico += "      </a>    \n";
                   htmlDinamico += "  </div>   \n";
                   htmlDinamico += divCierre;
@@ -160,9 +160,9 @@ function showLevel2(json,idNivel1){
 
   else if (tope == 1) {
       htmlDinamicoCuerpo += "  <div class='col-50'>";
-      htmlDinamicoCuerpo += "      <a href='#' onclick='redirigirTicket(" + idNivel1 + "," + json[0].idNivel2 + ");return false;' class='menu-link'>";
+      htmlDinamicoCuerpo += "      <a href='#' onclick='redirigirTicket(" + json[0].idNivel1 + "," + json[0].idNivel2 + ");return false;' class='menu-link'>";
       htmlDinamicoCuerpo += "         <span class='" + json[0].imagen + "'></span>";
-      htmlDinamicoCuerpo += "         <span>" + json[0].glosa + "</span>"
+      htmlDinamicoCuerpo += "         <span>" + json[0].glosa+" / "+json[0].glosa2 + "</span>"
       htmlDinamicoCuerpo += "      </a>"
       htmlDinamicoCuerpo += "  </div>";
       htmlDinamicoCuerpo = divApertura + htmlDinamicoCuerpo + divCierre;
@@ -174,19 +174,16 @@ function showLevel2(json,idNivel1){
 }
 
 
-function mostrarNivel2(idNivel1){
+function mostrarNivel2(){
 
   $("#menuDinamico").html("");
   
-  if (idNivel1 == 0) {
-      return;
-  }
 
-  var menuNivel2=window.localStorage.getItem("nivel2"+idNivel1);
+  var menuNivel2=window.localStorage.getItem("nivel2");
 
   if(menuNivel2==null){
 
-        var urlGetLevel2 =window.localStorage.getItem("URL")+"/api/Nivel2/"+idNivel1;
+        var urlGetLevel2 =window.localStorage.getItem("URL")+"/api/Nivel2/";
         
 
         $.ajax({
@@ -195,9 +192,9 @@ function mostrarNivel2(idNivel1){
             dataType: "json",
             success: function (json) {
 
-                window.localStorage.setItem("nivel2"+idNivel1,JSON.stringify(json));
+                window.localStorage.setItem("nivel2",JSON.stringify(json));
 
-                showLevel2(json,idNivel1);
+                showLevel2(json);
 
                 
 
@@ -212,7 +209,7 @@ function mostrarNivel2(idNivel1){
     }
 
     else{
-      showLevel2(JSON.parse(menuNivel2),idNivel1);
+      showLevel2(JSON.parse(menuNivel2));
     }
 
 
@@ -224,13 +221,6 @@ function mostrarNivel2(idNivel1){
 function crearCuenta(){
   location.href="crearUsuario.html";
 }
-
-
-
-$("#level1").change(function(){
-  var valor = $("#level1").val();
-  mostrarNivel2(valor);    
-});
 
 
 

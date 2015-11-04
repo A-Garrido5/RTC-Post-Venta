@@ -10,29 +10,31 @@ $(document).ready(function (){
 });
 
 
+
+
 function mostrarTicketsGuardados(){
 
 
 	var arreglo = JSON.parse(window.localStorage.getItem("push"));
 
-	if(arreglo==null){
-		alert("No hay datos guardados");
-	}
 
 	var htmlDinamico="";
 
+	if(arreglo==null){
+		htmlDinamico+="<label class='entrada'>No existen tickets guardados</label>";
+		document.getElementById('accept').style.display="none";
+	}
 
 	
+	else{
 
-	for(var i = 0; i < arreglo.length; i++){
+		for(var i = 0; i < arreglo.length; i++){
 
 		var k = i+1;
 
 		var array= JSON.parse(arreglo[i]);
 
 		var urgencia;
-
-		//var pictures = JSON.parse(array.documentosCarga);
 
 		var numeroFotos = array.documentosCarga.length;
 		
@@ -60,10 +62,10 @@ function mostrarTicketsGuardados(){
    		htmlDinamico+="				<td><strong style='font-size: 20px;'>ID Sub-sitio:</strong></td>"
  		htmlDinamico+="				<td><strong style='font-size: 20px;'>"+array.idSubsitio+"</strong></td>"
  		htmlDinamico+="			</tr>";
- 		htmlDinamico+="			<tr class='ui-bar-a'>";
-   		htmlDinamico+="				<td><strong style='font-size: 20px;'>ID Tipo:</strong></td>"
- 		htmlDinamico+="				<td><strong style='font-size: 20px;'>"+array.idTipo+"</strong></td>"
- 		htmlDinamico+="			</tr>";
+ 		//htmlDinamico+="			<tr class='ui-bar-a'>";
+   		//htmlDinamico+="				<td><strong style='font-size: 20px;'>ID Tipo:</strong></td>"
+ 		//htmlDinamico+="				<td><strong style='font-size: 20px;'>"+array.idTipo+"</strong></td>"
+ 		//htmlDinamico+="			</tr>";
  		htmlDinamico+="			<tr class='ui-bar-a'>";
    		htmlDinamico+="				<td><strong style='font-size: 20px;'>ID nivel 1:</strong></td>"
  		htmlDinamico+="				<td><strong style='font-size: 20px;'>"+array.idNivel1+"</strong></td>"
@@ -113,6 +115,12 @@ function mostrarTicketsGuardados(){
 		
 	}
 
+	}
+
+	
+
+	
+
 
 	$("#TicketsGuardados").html(htmlDinamico);
 
@@ -148,7 +156,7 @@ function enviarTextoTicket(datos,esUltimo,numeroTickets){
                  
                   error: function (xhr,status,p3,p4) {
                                
-                      alert("error:");
+                      alert("Error de conexión");
                   }
           });
 }
@@ -250,8 +258,6 @@ function enviarTicketsGuardados(){
 		
 	}
 
-		alert(terminoMandarTicket);
-		alert(terminoMandarFoto);
 
 	
 		if(terminoMandarTicket && terminoMandarFoto)
@@ -260,9 +266,18 @@ function enviarTicketsGuardados(){
 
 }
 
-$('#accept').click(function() { 
+$('#accept').click(function() {
 
-	enviarTicketsGuardados();
+	var estaConectado=checkConnection();
+
+	if(estaConectado) {
+
+		enviarTicketsGuardados();
+	}
+
+	else{
+		showAlert("El equipo aún se encuentra sin conexión\n\n         Intentelo más tarde");
+	}
 
 
 });
@@ -287,6 +302,30 @@ document.addEventListener("deviceready", onDeviceReady, false);
       function alertDismissed() {
          
       }
+
+
+      function checkConnection() {
+	      var networkState = navigator.connection.type;
+
+	      var states = {};
+	      states[Connection.UNKNOWN]  = 'Unknown connection';
+	      states[Connection.ETHERNET] = 'Ethernet connection';
+	      states[Connection.WIFI]     = 'WiFi connection';
+	      states[Connection.CELL_2G]  = 'Cell 2G connection';
+	      states[Connection.CELL_3G]  = 'Cell 3G connection';
+	      states[Connection.CELL_4G]  = 'Cell 4G connection';
+	      states[Connection.CELL]     = 'Cell generic connection';
+	      states[Connection.NONE]     = 'No network connection';
+
+	      if(states[networkState]=='No network connection'){
+	        return false;
+	      }
+
+	      else{
+	        return true;
+	      }
+
+	}
 
 
 

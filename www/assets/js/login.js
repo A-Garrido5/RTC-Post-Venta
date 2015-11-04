@@ -13,7 +13,7 @@
               
 	            var sesionvalida = parseInt(json.sesionValida);
 	            if (sesionvalida != 1) {
-	                alert(json.mensaje);
+	                showAlert(json.mensaje);
 	            }
 	            else {
 	            	
@@ -48,7 +48,6 @@
             //var cripto = window.btoa(datosUsuario+'|'+datosPassword);
             var usuarioEncriptado=window.btoa(datosUsuario);
             var claveEncriptada=window.btoa(datosPassword);
-
 
             login(usuarioEncriptado,claveEncriptada);
     });

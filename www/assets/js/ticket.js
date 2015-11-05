@@ -2,6 +2,8 @@ var fotos=[];
 
 var nombresFotos=[];
 
+
+
 function onDeviceReady() {
 
 	pictureSource = navigator.camera.PictureSourceType;
@@ -32,6 +34,7 @@ $(document).ready(function (){
 });
 
 function checkConnection() {
+      
       var networkState = navigator.connection.type;
 
       var states = {};
@@ -86,10 +89,6 @@ function sendData(imageData){
   for(var i=0;i<fotos.length;i++){
 
     htmlDinamico+="<img style='width:90%;height:250px;margin-left: 10px;'src='"+fotos[i]+"'/> <br><br><br>";
-
-    //<img style="display:none;width:90%;height:250px;margin-left: 10px;" id="smallImage" src="" />
-
-
 
 
   }
@@ -179,8 +178,6 @@ function guardaTicket(sitio,categoria,tipo,descripcion,urgente,idNivel3){
 	
   var datos = {"descripcion": descripcion, "urgente": urgente, "token": token, "idSitio":sitio  ,"idSubsitio": categoria,"idTipo":tipo,"idNivel1":idNivel1,"idNivel2":idNivel2,"idNivel3":idNivel3,"documentosCarga": photoNames};
 
-
-
         	$.ajax({
                   url: window.localStorage.getItem("URL")+"/api/Ticket",
                   type: "POST",
@@ -194,7 +191,7 @@ function guardaTicket(sitio,categoria,tipo,descripcion,urgente,idNivel3){
                  
                   error: function (xhr,status,p3,p4) {
                                
-                      alert("error:");
+                      alert(JSON.stringify(xhr));
                   }
           });
     }
@@ -261,7 +258,6 @@ function capturePhoto() {
 
 function onFail(message) {
 
-	//alert('Fallo ocurrido:  ' + message);
 
 }
 
@@ -362,7 +358,7 @@ function obtenerTipos(){
                   
                 },
                 error:function (xhr, ajaxOptions, thrownError) {
-                   alert(JSON.stringify(thrownError));
+        
                    alert(JSON.stringify(xhr));
                 }
           });
@@ -417,7 +413,6 @@ function obtenerCategoria(idSitio, idTipo){
                     
                   },
                   error:function (xhr, ajaxOptions, thrownError) {
-                     alert(JSON.stringify(thrownError));
                      alert(JSON.stringify(xhr));
                   }
             });
@@ -451,20 +446,17 @@ function validarCampos(sitio,categoria,tipo,descripcion,idNivel3){
 
 
   if (idNivel3==0) {
-    //alert("Nivel 3 inválido");
     corregir+="- Nivel 3\n"
     errores++;
   }
 
   if(sitio==0){
-    //alert("Sitio inválido");
     corregir+="- Sitio\n"
     errores++;
 
   }
 
   if(tipo==0){
-    //alert("Tipo inválido");
     corregir+="- Tipo\n"
     errores++;
   }
@@ -476,7 +468,6 @@ function validarCampos(sitio,categoria,tipo,descripcion,idNivel3){
 
   if (errores>0) {
     showError(corregir,"Errores: "+errores)
-    //alert(+"\n\n"+);
     return false;
   }
 
@@ -489,25 +480,16 @@ function validarCampos(sitio,categoria,tipo,descripcion,idNivel3){
 function guardarTicketLocalStorage(){
   
     var sitio=$('#edificio').val();
-
     var categoria=$('#categoria').val();
-
     var tipo =$('#tipo').val();
-
     var descripcion=$('#descripcion').val();
-
     var urgente = $('#roundedOne').is(':checked');
-
-    var idNivel3 = $('#nivel3').val();
-  
+    var idNivel3 = $('#nivel3').val();  
     var token = localStorage.getItem("token");
-
     var idNivel1 = getUrlVars()["idNivel1"];
-
     var idNivel2 = getUrlVars()["idNivel2"];
-
     var array = window.localStorage.getItem("push");
-
+    
     if (array==null) {
       var local=[];
     }
@@ -517,8 +499,6 @@ function guardarTicketLocalStorage(){
     }
 
     var datos = {"descripcion": descripcion, "urgente": urgente, "token":token, "idSitio":sitio,"idSubsitio": categoria,"idTipo":tipo,"idNivel1":idNivel1,"idNivel2":idNivel2,"idNivel3":idNivel3,"documentosCarga":fotos};
-
-    //alert(JSON.stringify(datos));
 
     local.push(JSON.stringify(datos));
 
@@ -615,10 +595,6 @@ document.addEventListener("deviceready", onDeviceReady, false);
          
       }
 
-
-
-
-
   
   function showAlert(message) {
       navigator.notification.alert(
@@ -647,8 +623,6 @@ document.addEventListener("deviceready", onDeviceReady, false);
         }
     }
 
-    // Show a custom confirmation dialog
-    //
     function showConfirm(message) {
         navigator.notification.confirm(
             message, // message
@@ -658,9 +632,6 @@ document.addEventListener("deviceready", onDeviceReady, false);
         );
     }
 
-
-    // Handle the back button
-    //
     function onBackKeyDown() {
       
     }

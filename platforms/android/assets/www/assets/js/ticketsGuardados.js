@@ -150,8 +150,7 @@ function enviarTextoTicket(datos,esUltimo,numeroTickets){
 							tickets=[];
 							terminoMandarTicket=true;
 						}
-                      //showAlert("Se ha creado un ticket número: " + result);
-                      
+                                           
                   },
                  
                   error: function (xhr,status,p3,p4) {

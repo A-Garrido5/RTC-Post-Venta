@@ -12,154 +12,6 @@ function redirigir(ruta){
 
 }
 
-
-function obtenerRegiones(){
-
-
-  var urlGetRegion =window.localStorage.getItem("URL")+"/api/Region";
-
-  $.ajax({
-          url: urlGetRegion,
-          type: "GET",
-          dataType: "json",
-          success: function(json) {
-
-
-            if (json != "") {
-
-               var selectObject = $('#region');
-
-               var jsonObject = eval(json);
-
-                
-
-               for (var n = 0; n < jsonObject.length; n++) {
-                    //selectObject.append(new Option(jsonObject[n].glosa, jsonObject[n].idRegion.value));
-                    $('#region').append($('<option>', { 
-                        value: jsonObject[n].idRegion,
-                        text : jsonObject[n].glosa
-                    }));
-               };
-            }
-
-               
-      
-            
-          },
-          error:function (xhr, ajaxOptions, thrownError) {
-             alert(JSON.stringify(thrownError));
-             
-          }
-    });
-}
-
-
-
-function obtenerCiudades(){
-
-  var region = $('#region').val();
-
-  var ciudad = $('#city').empty();
-
-  ciudad.append($('<option>', { 
-                        value: 0,
-                        text : ".Seleccionar."
-  }));
-
-  var urlGetCity =window.localStorage.getItem("URL")+"/api/Ciudad/"+region;
-
-  $.ajax({
-          url: urlGetCity,
-          type: "GET",
-          dataType: "json",
-          success: function(json) {
-
-
-            if (json != "") {
-
-               
-
-               var jsonObject = eval(json);
-
-
-
-              
-
-               for (var n = 0; n < jsonObject.length; n++) {
-        
-                    ciudad.append($('<option>', { 
-                        value: jsonObject[n].idCiudad,
-                        text : jsonObject[n].glosa
-                    }));
-               }
-            }
-
-               
-      
-            
-          },
-          error:function (xhr, ajaxOptions, thrownError) {
-             alert(JSON.stringify(thrownError));
-             
-          }
-    });
-
-}
-
-
-function obtenerComunas(){
-
-  var ciudad = $('#city').val();
-
-  var comuna = $('#comuna').empty();
-
-  comuna.append($('<option>', { 
-                        value: 0,
-                        text : ".Seleccionar."
-  }));
-
-  
-
-  var urlGetComuna =window.localStorage.getItem("URL")+"/api/Comuna/"+ciudad;
-
-
-  $.ajax({
-          url: urlGetComuna,
-          type: "GET",
-          dataType: "json",
-          success: function(json) {
-
-
-            if (json != "") {
-
-               
-
-               var jsonObject = eval(json);
-
-              
-
-               for (var n = 0; n < jsonObject.length; n++) {
-                    
-                    comuna.append($('<option>', { 
-                        value: jsonObject[n].idComuna,
-                        text : jsonObject[n].glosa
-                    }));
-               };
-            }
-
-               
-      
-            
-          },
-          error:function (xhr, ajaxOptions, thrownError) {
-             alert(JSON.stringify(thrownError));
-             
-          }
-    });
-
-}
-
-
 function validarCampos(){
 
   var expr = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
@@ -172,26 +24,22 @@ function validarCampos(){
 
   
   if (!filter6.test(document.getElementById("userName").value)){
-    //alert("Nombre de usuario inválido");
     corregir+="- Nombre de usuario\n";
     errores++;
   }
   
   if (!filter6.test(document.getElementById("userLastName").value)){
-    //alert("Apellido inválido");
     corregir+="- Apellido\n";
     errores++;
   }
   
 
   if (!expr.test(document.getElementById("email").value)){
-    //alert("Correo inválido");
     corregir+="- Correo\n";
     errores++;
   }
 
   if(document.getElementById("pass").value.length<4 ||(document.getElementById("pass").value != document.getElementById("passConfirm").value)){
-    //alert("La contraseña debe ser mayor a 4 caracteres");
     corregir+="- Contraseña\n";
     errores++;
   }
@@ -199,29 +47,12 @@ function validarCampos(){
   
 
   if(!num.test(document.getElementById("mobileFono").value)){
-    //lert("Número de celular inválido");
     corregir+="- Número de celular\n";
     errores++;
   }
 
-  if($("#region").val()==0){
-    corregir+="- Región\n";
-    errores++;
-  }
-
-  if($("#city").val()==0){
-    corregir+="- Ciudad\n";
-    errores++;
-  }
-
-  if($("#comuna").val()==0){
-    corregir+="- Comuna\n";
-    errores++;
-  }
-
+  
   if(errores>0){
-    //alert("Errores: "+errores);
-
     showError(corregir,"Errores: "+errores);
     return false;  
   }  
@@ -234,7 +65,7 @@ function validarCampos(){
 
 }
 
-function crearUsuario(nombres, apellidos, mail, contrasena, telefono, celular, direccion, idPais,idRegion, idCiudad, idComuna){
+function crearUsuario(nombres, apellidos, mail, contrasena, telefono, celular, direccion){
 
   var urlCreate =window.localStorage.getItem("URL")+"/api/Usuario";
   var dataUsuario = { "nombres": nombres, 
@@ -242,10 +73,7 @@ function crearUsuario(nombres, apellidos, mail, contrasena, telefono, celular, d
                     "password": contrasena,
                     "mail": mail,
                     "movil": celular,
-                    "direccion": direccion,
-                    "idRegion":  idRegion ,
-                    "idCiudad":  idCiudad ,
-                    "idComuna":  idComuna 
+                    "direccion": direccion
                   };
 
 
@@ -287,22 +115,14 @@ $('#sendToCreate').click(function() {
         var celular = $("#mobileFono").val();
         var direccion = $("#address").val();
         var idPais = "";
-        var idRegion = $("#region").val();
-        var idCiudad = $("#city").val();
-        var idComuna = $("#comuna").val();
+  
 
 
 
         if(esValido){
           
-          crearUsuario(nombres,apellidos,mail,contrasena,telefono,celular,direccion,idPais,idRegion,idCiudad,idComuna);
-        }
-
-   
-        
-
-        
-        //location.href="login.html"
+          crearUsuario(nombres,apellidos,mail,contrasena,telefono,celular,direccion);
+        }      
 
 });
 
@@ -366,19 +186,16 @@ $("#city").change(function(){
 
 document.addEventListener("deviceready", onDeviceReady, false);
 
-    // device APIs are available
-    //
     function onDeviceReady() {
-        // Empty
+        
     }
 
-    // alert dialog dismissed
+    
         function alertDismissed() {
-            // do something
+            
         }
 
-    // Show a custom alertDismissed
-    //
+    
     function showAlert(message) {
         navigator.notification.alert(
             message,                // message

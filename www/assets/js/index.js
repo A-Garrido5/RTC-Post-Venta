@@ -1,4 +1,4 @@
-//localStorage.removeItem("Solicitudes");
+
 $(document).ready(function () {
 
 
@@ -18,8 +18,7 @@ $(document).ready(function () {
     }
 
     else {
-        //mostrarMenu();
-
+        
         $('#nameRight').text(username);
 
         mostrarNivel2();
@@ -241,8 +240,6 @@ document.addEventListener("deviceready", onDeviceReady, false);
         }
     }
 
-    // Show a custom confirmation dialog
-    //
     function showConfirm(message) {
         navigator.notification.confirm(
             message, // message
@@ -253,8 +250,6 @@ document.addEventListener("deviceready", onDeviceReady, false);
     }
 
 
-    // Handle the back button
-    //
     function onBackKeyDown() {
 
       showConfirm("¿Está seguro que desea salir?");

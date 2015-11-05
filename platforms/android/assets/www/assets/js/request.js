@@ -131,13 +131,7 @@ function obtenerSolicitudes(conexion){
 	}
 }
 
-    
-$('#cancel').click(function() { 
 
-	parent.history.back();
-
-
-});
 
 document.addEventListener("deviceready", onDeviceReady, false);
 
@@ -189,6 +183,12 @@ function onOffline() {
 
 
 
+    
+$('#cancel').click(function() { 
 
+	parent.history.back();
+
+
+});
 
 

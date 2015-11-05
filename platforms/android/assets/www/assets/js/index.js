@@ -1,4 +1,4 @@
-localStorage.removeItem("Solicitudes");
+//localStorage.removeItem("Solicitudes");
 $(document).ready(function () {
 
 

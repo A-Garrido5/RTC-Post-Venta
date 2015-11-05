@@ -5993,16 +5993,16 @@ td.right{
 
   margin-left: 10px;
   margin-right: 10px;
-  font-size:2em;
+  font-size:1em;
   text-align:center;
-  width:150px;
+  width:auto;
 }
 
 .entrada{
   margin-left: 10px;
   width: 90%;
-  height: 30px;
-  font-size:1.5em;
+  height: auto;
+  font-size:1em;
 
 }
 
@@ -6010,7 +6010,7 @@ td.right{
 
   margin-left: 10px;
   width: 90%;
-  font-size:1.5em;
+  font-size:1em;
 
 }
 
@@ -6083,17 +6083,30 @@ input[type=checkbox]
 .btn_red {background-color: #DC143C;}
 
 
-th {
-    border-bottom: 1px solid #d6d6d6;
-    font-size: 25px;
 
 
-}
+table {    
+  font-family: "Lucida Sans Unicode", "Lucida Grande", 
+  Sans-Serif;
+  font-size: 12px;
+  width: 100%;
+  text-align: left;
+  border-collapse: collapse; }
 
-tr {
-    background: #e9e9e9;
-}
+th {     
+  font-size: 13px;
+  font-weight: normal; 
+  padding: 8px;     
+  background: #b9c9fe;
+  border-top: 4px solid #aabcfe;    
+  border-bottom: 1px solid #fff; 
+  color: #039; }
 
-table {
-    width: 100%;
-}
+td {    
+  padding: 8px;     
+  background: #e8edff;     
+  border-bottom: 1px solid #fff;
+  color: #669;    
+  border-top: 1px solid transparent; }
+
+tr:hover td { background: #d0dafd; color: #339; }

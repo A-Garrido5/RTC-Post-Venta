@@ -1,7 +1,7 @@
-    
+    //localStorage.setItem("URL", "http://sae1.imatronix.com:2614/WEBAPI_SERVICE");
 
     function login(usuario, password){
-	    var urlLogin=window.localStorage.getItem("URL")+"/api/Login/";
+	     var urlLogin=window.localStorage.getItem("URL")+"/api/Login/";
 
 	    $.ajax({
 	        url: urlLogin,

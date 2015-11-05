@@ -1,11 +1,6 @@
 cordova.define('cordova/plugin_list', function(require, exports, module) {
 module.exports = [
     {
-        "file": "plugins/cordova-plugin-whitelist/whitelist.js",
-        "id": "cordova-plugin-whitelist.whitelist",
-        "runs": true
-    },
-    {
         "file": "plugins/cordova-plugin-media-capture/www/CaptureAudioOptions.js",
         "id": "cordova-plugin-media-capture.CaptureAudioOptions",
         "clobbers": [
@@ -153,6 +148,11 @@ module.exports = [
         "clobbers": [
             "Connection"
         ]
+    },
+    {
+        "file": "plugins/cordova-plugin-whitelist/whitelist.js",
+        "id": "cordova-plugin-whitelist.whitelist",
+        "runs": true
     },
     {
         "file": "plugins/cordova-plugin-file/www/DirectoryEntry.js",
@@ -304,17 +304,16 @@ module.exports = [
 module.exports.metadata = 
 // TOP OF METADATA
 {
-    "cordova-plugin-whitelist": "1.0.0",
     "cordova-plugin-media-capture": "1.0.2-dev",
     "cordova-plugin-camera": "1.2.0",
     "cordova-plugin-file-transfer": "1.3.1-dev",
-    "cordova-plugin-console": "1.0.2-dev",
     "de.fastr.phonegap.plugins.md5chksum": "0.1.3",
     "in.edelworks.sharedpreferences": "0.1.0",
     "cordova-plugin-splashscreen": "3.0.0-dev",
     "cordova-plugin-dialogs": "1.1.1",
     "org.apache.cordova.vibration": "0.3.13",
     "org.apache.cordova.network-information": "0.2.15",
+    "cordova-plugin-whitelist": "1.0.0",
     "cordova-plugin-file": "3.0.0"
 }
 // BOTTOM OF METADATA

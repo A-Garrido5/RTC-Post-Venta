@@ -1,4 +1,4 @@
-
+localStorage.removeItem("Solicitudes");
 $(document).ready(function () {
 
 
@@ -18,12 +18,14 @@ $(document).ready(function () {
     }
 
     else {
-        mostrarMenu();
+        //mostrarMenu();
 
         $('#nameRight').text(username);
+
+        mostrarNivel2();
     }
 
-    mostrarNivel2();  
+    
 
 
 });
@@ -58,45 +60,7 @@ function showMenu(json){
 }
 
 
-function mostrarMenu(){
 
-  var menuNivel1=window.localStorage.getItem("nivel1");
-
-
-  if(menuNivel1==null){
-
-    var urlGetLevel =window.localStorage.getItem("URL")+"/api/Nivel1";
-    $.ajax({
-            url: urlGetLevel,
-            type: "GET",
-            dataType: "json",
-            success: function(json) {
-              
-
-                window.localStorage.setItem("nivel1",JSON.stringify(json));
-
-                showMenu(json);
-
-                
-              
-              
-            },
-            error:function (xhr, ajaxOptions, thrownError) {
-               alert(JSON.stringify(thrownError));
-          
-            }
-    });
-  }
-
-  else{
-
-    showMenu(JSON.parse(menuNivel1));
-
-    
-
-  }
-
-}
 
 function showLevel2(json){
 
@@ -227,3 +191,73 @@ function crearCuenta(){
 
 
 var permanentStorage = window.localStorage;
+
+
+
+document.addEventListener("deviceready", onDeviceReady, false);
+
+  
+  
+  function onDeviceReady() {
+
+    document.addEventListener("backbutton", onBackKeyDown, false);
+      
+  }
+
+  
+      function alertDismissed() {
+         
+      }
+
+
+
+
+
+  
+  function showAlert(message) {
+      navigator.notification.alert(
+          message,                
+          alertDismissed,         
+          'Aviso',            
+          'Ok'                  
+      );
+  }
+
+  function showError(message,titulo) {
+      navigator.notification.alert(
+          message,                
+          alertDismissed,         
+          titulo,            
+          'Ok'                  
+      );
+    }
+
+  function onConfirm(buttonIndex) {
+        
+        if(buttonIndex==2){
+
+           navigator.app.exitApp();
+
+        }
+    }
+
+    // Show a custom confirmation dialog
+    //
+    function showConfirm(message) {
+        navigator.notification.confirm(
+            message, // message
+             onConfirm,            // callback to invoke with index of button pressed
+            'Confirmar',           // title
+            ['Cancelar','Ok']         // buttonLabels
+        );
+    }
+
+
+    // Handle the back button
+    //
+    function onBackKeyDown() {
+
+      showConfirm("¿Está seguro que desea salir?");
+
+    }
+      

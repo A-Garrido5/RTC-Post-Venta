@@ -605,6 +605,8 @@ document.addEventListener("deviceready", onDeviceReady, false);
   
   
   function onDeviceReady() {
+
+    document.addEventListener("backbutton", onBackKeyDown, false);
       
   }
 
@@ -655,5 +657,13 @@ document.addEventListener("deviceready", onDeviceReady, false);
             ['Cancelar','Ok']         // buttonLabels
         );
     }
+
+
+    // Handle the back button
+    //
+    function onBackKeyDown() {
+      
+    }
+
 
 

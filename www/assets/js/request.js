@@ -1,19 +1,10 @@
-$(document).ready(function (){
 
-
-
-    obtenerSolicitudes();
-
-
-
-
-
-});
+var estaConectado;
 
 
 function mostrarSolicitudes(json){
 
-var htmlDinamico="";
+	var htmlDinamico="";
 
 
           		
@@ -93,17 +84,18 @@ var htmlDinamico="";
 }
 
 
-function obtenerSolicitudes(){
+function obtenerSolicitudes(conexion){
 
 	var token = window.localStorage.getItem("token");
 	var htmlDinamico="";
-	
 
 	var urlGetRequests =window.localStorage.getItem("URL")+"/api/Ticket/"+token;
 
 	var request = window.localStorage.getItem("Solicitudes");
 
 	if(request==null){
+
+		if(conexion){
 	  	$.ajax({
 	    	    url: urlGetRequests,
 	        	type: "GET",
@@ -124,6 +116,14 @@ function obtenerSolicitudes(){
 		            alert(JSON.stringify(thrownError));
 		        }
 	    });
+	  }
+
+	  else{
+	  	showError("No hay conexion a Internet\n\n           Intentelo más tarde","Error de conexión");
+	  	location.href="index.html";
+	  }
+
+
 	}
 
 	else{
@@ -138,3 +138,57 @@ $('#cancel').click(function() {
 
 
 });
+
+document.addEventListener("deviceready", onDeviceReady, false);
+
+  
+  
+  function onDeviceReady() {
+      
+  }
+
+  
+      function alertDismissed() {
+         
+      }
+
+			  
+  function showAlert(message) {
+      navigator.notification.alert(
+          message,                
+          alertDismissed,         
+          'Aviso',            
+          'Ok'                  
+      );
+  }
+
+  function showError(message,titulo) {
+      navigator.notification.alert(
+          message,                
+          alertDismissed,         
+          titulo,            
+          'Ok'                  
+      );
+    }
+
+
+    function onOnline() {               
+            estaConectado=true;
+            obtenerSolicitudes(estaConectado);
+}
+
+//If User is Offline....................................
+document.addEventListener("offline", onOffline, false);
+function onOffline() {
+    estaConectado=false;
+
+    obtenerSolicitudes(estaConectado);
+
+}
+    document.addEventListener("online", onOnline, false);
+
+
+
+
+
+

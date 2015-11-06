@@ -2,7 +2,7 @@
 
 Manual de desarrollo proyecto RTC PostVenta.
 
-1.-  Instalación Node.js
+1.-  Instalación Node.js\n
     a)	Ir al sitio https://nodejs.org/en/ en la sección Downloads, descargar e instalar.
 
 2.- Instalación Phonegap

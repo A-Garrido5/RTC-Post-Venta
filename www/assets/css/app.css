@@ -5108,8 +5108,11 @@ html:not(.watch-active-state) .list-block .item-link:active {
 .dashboard-menu > div {
   margin-bottom: 20px;
 }
+ 
 .dashboard-menu > div:first-child {
-  margin-top: 50px;
+  margin-top: -20px;
+  margin-bottom: 20px;
+
 }
 .dashboard-menu .menu-link {
   background: #B28973;
@@ -5117,6 +5120,7 @@ html:not(.watch-active-state) .list-block .item-link:active {
   position: relative;
   display: inline-block;
   width: 70px;
+  margin-bottom: 20px;
   height: 70px;
   border-radius: 10px;
   box-shadow: 0 2px 1px -2px rgba(0, 0, 0, 0.3);
@@ -5968,6 +5972,7 @@ td.right{
 .boton-aceptar{
   float: left;
   margin-left: 10px;
+  margin-bottom: 10px;
   background:#00ff00;
   color:#fff;
   font-size:1.25em;
@@ -5980,6 +5985,7 @@ td.right{
 .boton-cancelar {
   float: right;
   margin-right: 10px;
+  margin-bottom: 10px;
   background:#ff0000;
   color:#fff;
   font-size:1.25em;
@@ -5993,7 +5999,7 @@ td.right{
 
   margin-left: 10px;
   margin-right: 10px;
-  font-size:1em;
+  font-size:1.5em;
   text-align:center;
   width:auto;
 }
@@ -6002,7 +6008,7 @@ td.right{
   margin-left: 10px;
   width: 90%;
   height: auto;
-  font-size:1em;
+  font-size:1.5em;
 
 }
 
@@ -6032,6 +6038,11 @@ td.right{
 
 .centrar{
   text-align: center;
+}
+
+ input[type=radio] {
+    border: 0px;
+    height: 2em;
 }
 
 
@@ -6110,3 +6121,9 @@ td {
   border-top: 1px solid transparent; }
 
 tr:hover td { background: #d0dafd; color: #339; }
+
+.imagen{
+    width:90%;
+    height:auto;
+    margin-left: 10px;
+}

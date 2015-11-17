@@ -2,7 +2,6 @@
 $(document).ready(function () {
 
 
-
     localStorage.setItem("URL", "http://sae1.imatronix.com:2614/WEBAPI_SERVICE");
 
 
@@ -42,6 +41,11 @@ function redirigirTicket(nivel1,nivel2) {
 
 function logout(){
   localStorage.removeItem("token");
+  localStorage.removeItem("idUsuario");
+  localStorage.removeItem("Nivel3");
+  localStorage.removeItem("sitios");
+  localStorage.removeItem("nivel2");
+
   location.href="login.html";
 }
 

@@ -87,7 +87,7 @@ function sendData(imageData){
 	
   for(var i=0;i<fotos.length;i++){
 
-    htmlDinamico+="<img class='imagen'src='"+fotos[i]+"'/> <br><br><br>";
+    htmlDinamico+="<img style='width:90%;height:250px;margin-left: 10px;'src='"+fotos[i]+"'/> <br><br><br>";
 
 
   }
@@ -112,34 +112,25 @@ function concatenarNombres(){
   return acumulador;
 }
 
-
-
 function showLevel3(json){
 
   var jsonObject = eval(json);
 
-  var htmlDinamico="";
-
-
  for (var n = 0; n < jsonObject.length; n++) {
 
-  htmlDinamico+="<input id='"+n+"' type='radio' name='options' value='"+jsonObject[n].idNivel3+"'><label class='entrada'>"+jsonObject[n].glosa+"</label><br>";//++"<br>";
-  
-
-
+     $('#nivel3').append($('<option>', { 
+          value: jsonObject[n].idNivel3,
+          text : jsonObject[n].glosa
+      }));
  }
-
-$("#opciones").html(htmlDinamico);
 
 }
 
 function obtenerNivel3(){
 
-  var idNivel2 = getUrlVars()["idNivel2"];
+	var urlGetLevel3 =window.localStorage.getItem("URL")+"/api/Nivel3/"+ 1;
 
-	var urlGetLevel3 =window.localStorage.getItem("URL")+"/api/Nivel3/"+ idNivel2
-
-  var nivel3 = window.localStorage.getItem("Nivel3"+idNivel2);
+  var nivel3 = window.localStorage.getItem("Nivel3");
 
   if(nivel3==null){
 
@@ -171,13 +162,6 @@ function obtenerNivel3(){
 
 
 function guardaTicket(sitio,categoria,tipo,descripcion,urgente,idNivel3){
-
-
-  
-  if(descripcion=="" || descripcion.length==0){
- 
-    descripcion=".";
-  }
 	
 	var token = localStorage.getItem("token");
 
@@ -189,7 +173,7 @@ function guardaTicket(sitio,categoria,tipo,descripcion,urgente,idNivel3){
 
 	
   var datos = {"descripcion": descripcion, "urgente": urgente, "token": token, "idSitio":sitio  ,"idSubsitio": categoria,"idTipo":tipo,"idNivel1":idNivel1,"idNivel2":idNivel2,"idNivel3":idNivel3,"documentosCarga": photoNames};
-  //var params = {"persona_id":1,"solicitante_id":2,"catalogo_id":3,"notas":descripcion,"nivel1_id":idNivel1,"nivel2_id":idNivel2,"nivel3_id":idNivel3, "documentos":photoNames};
+
         	$.ajax({
                   url: window.localStorage.getItem("URL")+"/api/Ticket",
                   type: "POST",
@@ -224,7 +208,11 @@ function uploadPhoto(imageURI) {
   options.fileName= idUsuario+"_"+nombreArchivo;
   options.mimeType="image/jpeg";
 
+  
+  
   var params = new Object();
+
+  params = {"descripcion": "Soy descripcion", "urgente":"Soy urgente" , "token": "Soy el token", "idSitio":"Soy el sitio"  ,"idSubsitio": "Soy el Subsitio","idTipo":"Soy el tipo","idNivel1":"Soy el nivel 1","idNivel2":"Soy el nivel 2","idNivel3":"Soy el nivel 3"};
 
   options.params = params;
 
@@ -243,7 +231,8 @@ function uploadPhoto(imageURI) {
 
 
 function win(r) {
-	
+
+  alert(JSON.stringify(r));
 }
 
 function fail(error) {
@@ -451,11 +440,16 @@ function getUrlVars(){
     return vars;
 }
 
-function validarCampos(sitio,categoria,tipo,idNivel3){
+function validarCampos(sitio,categoria,tipo,descripcion,idNivel3){
 
   var errores=0;
   var corregir="Debe corregir: \n\n"
 
+
+  if (idNivel3==0) {
+    corregir+="- Nivel 3\n"
+    errores++;
+  }
 
   if(sitio==0){
     corregir+="- Sitio\n"
@@ -465,6 +459,11 @@ function validarCampos(sitio,categoria,tipo,idNivel3){
 
   if(tipo==0){
     corregir+="- Tipo\n"
+    errores++;
+  }
+
+  if (descripcion=="") {
+    corregir+="- descripcion\n"
     errores++;
   }
 
@@ -527,9 +526,9 @@ $('#accept').click(function() {
 
 	var urgente = $('#roundedOne').is(':checked');
 
-  var idNivel3 = document.querySelector('input[name="options"]:checked').value;
+  var idNivel3 = $('#nivel3').val();
 
-  var esValido=validarCampos(sitio,categoria,tipo,idNivel3);
+  var esValido=validarCampos(sitio,categoria,tipo,descripcion,idNivel3);
 
   if (esValido) {
 
@@ -539,7 +538,7 @@ $('#accept').click(function() {
       if(estaConectado){
                        
             
-            guardaTicket(sitio,categoria,tipo,descripcion,urgente,idNivel3);    
+            //guardaTicket(sitio,categoria,tipo,descripcion,urgente,idNivel3);    
 
             for(var i=0;i<fotos.length;i++){
                 uploadPhoto(fotos[i]);

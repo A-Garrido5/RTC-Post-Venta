@@ -114,8 +114,6 @@ $('#sendToCreate').click(function() {
         var telefono = $("#fono").val();
         var celular = $("#mobileFono").val();
         var direccion = $("#address").val();
-        var idPais = "";
-  
 
 
 
